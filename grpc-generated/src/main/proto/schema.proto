@@ -13,7 +13,9 @@ service MessageService {
   rpc ping (SimpleMessage) returns (SimpleMessage) {};
 
   rpc echoStream (SimpleMessage) returns (stream SimpleMessage) {};
+}
 
+service MessageDbService {
   rpc create (SimpleMessage) returns (SimpleMessage) {};
 
   rpc getAll (SimpleMessage) returns (stream SimpleMessage) {};

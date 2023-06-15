@@ -1,19 +1,39 @@
 package org.spr;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.spr.protos.MessageDbServiceGrpc;
+import org.spr.protos.MessageServiceGrpc;
+import org.spr.protos.SimpleMessage;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
+
     public static void main(String[] args) {
-        // Press Opt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        String host = "localhost";
+        int port = 8787;
 
-        // Press Ctrl+R or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
+                .usePlaintext()
+                .build();
 
-            // Press Ctrl+D to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Cmd+F8.
-            System.out.println("i = " + i);
-        }
+        MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
+
+        SimpleMessage message = SimpleMessage
+                .newBuilder()
+                .setBody("Hello everyone")
+                .build();
+
+        SimpleMessage response = stub.ping(message);
+
+        MessageDbServiceGrpc.MessageDbServiceBlockingStub bStub = MessageDbServiceGrpc.newBlockingStub(channel);
+        List<SimpleMessage> simpleMessageList = new ArrayList<>();
+        bStub
+                .getAll(SimpleMessage.newBuilder().build())
+                .forEachRemaining(simpleMessageList::add);
+
+        System.out.println("Response from server: " + simpleMessageList);
     }
 }
