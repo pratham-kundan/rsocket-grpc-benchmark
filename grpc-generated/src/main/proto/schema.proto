@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "org.spr.protos";
+option java_multiple_files = true;
+option java_outer_classname = "Messages";
+
+message SimpleMessage {
+  string id = 1;
+  string body = 2;
+}
+
+service MessageService {
+  rpc ping (SimpleMessage) returns (SimpleMessage) {};
+
+  rpc echoStream (SimpleMessage) returns (stream SimpleMessage) {};
+
+  rpc create (SimpleMessage) returns (SimpleMessage) {};
+
+  rpc getAll (SimpleMessage) returns (stream SimpleMessage) {};
+}
+
