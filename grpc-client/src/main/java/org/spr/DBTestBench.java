@@ -11,16 +11,14 @@ import java.util.List;
 
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 2)
-@Threads(100)
-public class TestBench {
-
+public class DBTestBench {
     @Benchmark
     @Fork(value = 1, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkRequestResponseT10(ExecutionPlan execPlan) {
-        SimpleMessage response = RequestComponent.requestResponse(execPlan.bStub, "Hello from client");
+    public void benchmarkDbGetAllT10(ExecutionPlan execPlan) {
+        List<SimpleMessage> messageList = RequestComponent.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
@@ -28,26 +26,26 @@ public class TestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkRequestResponseT20(ExecutionPlan execPlan) {
-        SimpleMessage response = RequestComponent.requestResponse(execPlan.bStub, "Hello from client");
+    public void benchmarkDbGetAllT20(ExecutionPlan execPlan) {
+        List<SimpleMessage> messageList = RequestComponent.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
     @Fork(value = 1, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
-    @Threads(10)
-    public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
-        List<SimpleMessage> response = RequestComponent.requestStream(execPlan.bStub, "Hello from client");
+    @Threads(50)
+    public void benchmarkDbGetAllT50(ExecutionPlan execPlan) {
+        List<SimpleMessage> messageList = RequestComponent.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
     @Fork(value = 1, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
-    @Threads(20)
-    public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
-        List<SimpleMessage> response = RequestComponent.requestStream(execPlan.bStub, "Hello from client");
+    @Threads(100)
+    public void benchmarkDbGetAllT100(ExecutionPlan execPlan) {
+        List<SimpleMessage> messageList = RequestComponent.getAllMessages(execPlan.dbBStub);
     }
 
     @State(Scope.Thread)
@@ -68,3 +66,4 @@ public class TestBench {
     }
 
 }
+
