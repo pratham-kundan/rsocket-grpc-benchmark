@@ -17,7 +17,7 @@ public class DBTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkDbGetAllT10(ExecutionPlan execPlan) {
+    public void benchmarkDbGetAllA(ExecutionPlan execPlan) {
         List<SimpleMessage> messageList = RequestComponent.getAllMessages(execPlan.dbBStub);
     }
 
@@ -26,7 +26,7 @@ public class DBTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkDbGetAllT20(ExecutionPlan execPlan) {
+    public void benchmarkDbGetAllB(ExecutionPlan execPlan) {
         List<SimpleMessage> messageList = RequestComponent.getAllMessages(execPlan.dbBStub);
     }
 
@@ -35,7 +35,7 @@ public class DBTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(50)
-    public void benchmarkDbGetAllT50(ExecutionPlan execPlan) {
+    public void benchmarkDbGetAllC(ExecutionPlan execPlan) {
         List<SimpleMessage> messageList = RequestComponent.getAllMessages(execPlan.dbBStub);
     }
 
@@ -44,7 +44,7 @@ public class DBTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(100)
-    public void benchmarkDbGetAllT100(ExecutionPlan execPlan) {
+    public void benchmarkDbGetAllD(ExecutionPlan execPlan) {
         List<SimpleMessage> messageList = RequestComponent.getAllMessages(execPlan.dbBStub);
     }
 

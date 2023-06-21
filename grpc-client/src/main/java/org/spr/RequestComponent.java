@@ -1,8 +1,6 @@
 package org.spr;
 
-import org.spr.protos.MessageDbServiceGrpc;
-import org.spr.protos.MessageServiceGrpc;
-import org.spr.protos.SimpleMessage;
+import org.spr.protos.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -43,5 +41,24 @@ public class RequestComponent {
 
     public static SimpleMessage createMessage(MessageDbServiceGrpc.MessageDbServiceBlockingStub stub, SimpleMessage request) {
         return stub.create(request);
+    }
+
+    public static SimpleSizedMessage sizedRequestResponse(SizedMessageServiceGrpc.SizedMessageServiceBlockingStub stub, int sizeMb) {
+        return stub.ping(SizedMessageRequest
+                .newBuilder()
+                .setSizeMb(sizeMb)
+                .build()
+        );
+    }
+
+    public static List<SimpleSizedMessage> sizedRequestStream(SizedMessageServiceGrpc.SizedMessageServiceBlockingStub stub, int sizeMb) {
+        List<SimpleSizedMessage> response = new ArrayList<>();
+        stub.echoStream(SizedMessageRequest
+                .newBuilder()
+                .setSizeMb(sizeMb)
+                .build()
+        ).forEachRemaining(response::add);
+
+        return response;
     }
 }

@@ -9,6 +9,20 @@ message SimpleMessage {
   string body = 2;
 }
 
+message SimpleSizedMessage {
+  repeated bytes data = 1;
+}
+
+message SizedMessageRequest {
+  uint32 size_mb = 1;
+}
+
+service SizedMessageService {
+  rpc ping (SizedMessageRequest) returns (SimpleSizedMessage) {};
+
+  rpc echoStream(SizedMessageRequest) returns (stream SimpleSizedMessage) {};
+}
+
 service MessageService {
   rpc ping (SimpleMessage) returns (SimpleMessage) {};
 
