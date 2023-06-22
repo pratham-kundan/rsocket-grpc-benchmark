@@ -6,7 +6,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RequestComponent {
+public class Requests {
     public static SimpleMessage requestResponse(MessageServiceGrpc.MessageServiceBlockingStub stub, String requestText) {
         SimpleMessage message = SimpleMessage
                 .newBuilder()

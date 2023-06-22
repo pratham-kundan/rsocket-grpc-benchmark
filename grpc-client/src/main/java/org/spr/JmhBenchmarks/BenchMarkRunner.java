@@ -1,4 +1,4 @@
-package org.spr;
+package org.spr.JmhBenchmarks;
 
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
@@ -8,8 +8,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class BenchMarkRunner {
     public static void main(String[] args) throws Exception {
         Options options = new OptionsBuilder()
-                .include(SizedTestBench.class.getName())
-//                .include(DBTestBench.class.getSimpleName())
+                .include(TestBench.class.getName())
                 .resultFormat(ResultFormatType.CSV)
                 .result("grpc-db-results.csv")
                 .build();

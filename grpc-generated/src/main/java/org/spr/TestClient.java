@@ -7,7 +7,7 @@ import org.spr.protos.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class TestClient {
 
     public static void main(String[] args) {
         String host = "localhost";

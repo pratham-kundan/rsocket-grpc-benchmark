@@ -1,3 +1,5 @@
 "Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
-"org.spr.SizedTestBench.benchmarkRequestStreamT20","thrpt",20,5,116.112426,15.452855,"ops/s"
-"org.spr.SizedTestBench.benchmarkRequestStreamT20:·stack","thrpt",20,1,NaN,NaN,"---"
+"org.spr.JmhBenchmarks.SizedTestBench.benchmarkRequestResponseT10","thrpt",10,5,42.054068,2.794809,"ops/s"
+"org.spr.JmhBenchmarks.SizedTestBench.benchmarkRequestResponseT20","thrpt",20,5,40.050732,2.817041,"ops/s"
+"org.spr.JmhBenchmarks.SizedTestBench.benchmarkRequestStreamT10","thrpt",10,5,12.882299,1.732775,"ops/s"
+"org.spr.JmhBenchmarks.SizedTestBench.benchmarkRequestStreamT20","thrpt",20,5,12.197260,1.486476,"ops/s"

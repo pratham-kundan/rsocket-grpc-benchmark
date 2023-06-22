@@ -7,9 +7,18 @@ import org.spr.protos.SimpleSizedMessage;
 import org.spr.protos.SizedMessageRequest;
 import org.spr.protos.SizedMessageServiceGrpc;
 
+/**
+ * grpc service to return messages of requested size
+ */
 @GrpcService
 public class SizedMessageServiceImpl extends SizedMessageServiceGrpc.SizedMessageServiceImplBase {
 
+    /**
+     * Responds wth an object of requested size
+     *
+     * @param request          Protobuf message with required size
+     * @param responseObserver responseObserver to publish data to
+     */
     @Override
     public void ping(SizedMessageRequest request, StreamObserver<SimpleSizedMessage> responseObserver) {
         int mb_size = request.getSizeMb();
@@ -21,6 +30,12 @@ public class SizedMessageServiceImpl extends SizedMessageServiceGrpc.SizedMessag
         responseObserver.onCompleted();
     }
 
+    /**
+     * Responds wth a stream of objects (1MB each) of requested size
+     *
+     * @param request          Protobuf message with required size
+     * @param responseObserver responseObserver to publish data to
+     */
     @Override
     public void echoStream(SizedMessageRequest request, StreamObserver<SimpleSizedMessage> responseObserver) {
         int mb_size = request.getSizeMb();

@@ -3,7 +3,17 @@ package org.spr.utils;
 import org.spr.data.Message;
 import org.spr.protos.SimpleMessage;
 
+/**
+ * Util class to convert mongo document to protobuf
+ */
 public class MessageUtils {
+
+    /**
+     * Function to convert Message Mongo Document to a Message protobuf
+     *
+     * @param message Mongo document
+     * @return Message protobuf
+     */
     public static SimpleMessage messageToProto(Message message) {
         return SimpleMessage
                 .newBuilder()

@@ -5,6 +5,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
+
+/**
+ * Mongo document representing a simple message
+ */
 @Document
 public class Message {
     @Id
