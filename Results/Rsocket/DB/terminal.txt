@@ -1,0 +1,169 @@
+# JMH version: 1.36
+# VM version: JDK 17.0.7, Java HotSpot(TM) 64-Bit Server VM, 17.0.7+8-LTS-224
+# VM invoker: /Users/prathamkundan/Desktop/bin/java/jdk-17.0.7.jdk/Contents/Home/bin/java
+# VM options: -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 10 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.spr.benchmarking.DBTestBench.benchmarkDbGetAllA
+
+# Run progress: 0.00% complete, ETA 00:08:00
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 359.614 ops/s
+Iteration   1: 531.490 ops/s
+Iteration   2: 529.891 ops/s
+Iteration   3: 552.263 ops/s
+Iteration   4: 507.772 ops/s
+Iteration   5: 515.601 ops/s
+
+# Run progress: 12.50% complete, ETA 00:07:08
+# Fork: 1 of 1
+# Warmup Iteration   1: 492.130 ops/s
+Iteration   1: 503.213 ops/s
+Iteration   2: 541.587 ops/s
+Iteration   3: 560.543 ops/s
+Iteration   4: 529.752 ops/s
+Iteration   5: 494.361 ops/s
+
+
+Result "org.spr.benchmarking.DBTestBench.benchmarkDbGetAllA":
+  525.891 ±(99.9%) 104.933 ops/s [Average]
+  (min, avg, max) = (494.361, 525.891, 560.543), stdev = 27.251
+  CI (99.9%): [420.958, 630.825] (assumes normal distribution)
+
+
+# JMH version: 1.36
+# VM version: JDK 17.0.7, Java HotSpot(TM) 64-Bit Server VM, 17.0.7+8-LTS-224
+# VM invoker: /Users/prathamkundan/Desktop/bin/java/jdk-17.0.7.jdk/Contents/Home/bin/java
+# VM options: -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 20 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.spr.benchmarking.DBTestBench.benchmarkDbGetAllB
+
+# Run progress: 25.00% complete, ETA 00:06:07
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 629.782 ops/s
+Iteration   1: 676.426 ops/s
+Iteration   2: 672.760 ops/s
+Iteration   3: 675.274 ops/s
+Iteration   4: 701.789 ops/s
+Iteration   5: 732.834 ops/s
+
+# Run progress: 37.50% complete, ETA 00:05:06
+# Fork: 1 of 1
+# Warmup Iteration   1: 714.738 ops/s
+Iteration   1: 711.462 ops/s
+Iteration   2: 701.143 ops/s
+Iteration   3: 703.874 ops/s
+Iteration   4: 719.848 ops/s
+Iteration   5: 725.516 ops/s
+
+
+Result "org.spr.benchmarking.DBTestBench.benchmarkDbGetAllB":
+  712.369 ±(99.9%) 39.822 ops/s [Average]
+  (min, avg, max) = (701.143, 712.369, 725.516), stdev = 10.342
+  CI (99.9%): [672.547, 752.190] (assumes normal distribution)
+
+
+# JMH version: 1.36
+# VM version: JDK 17.0.7, Java HotSpot(TM) 64-Bit Server VM, 17.0.7+8-LTS-224
+# VM invoker: /Users/prathamkundan/Desktop/bin/java/jdk-17.0.7.jdk/Contents/Home/bin/java
+# VM options: -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 50 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.spr.benchmarking.DBTestBench.benchmarkDbGetAllC
+
+# Run progress: 50.00% complete, ETA 00:04:05
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 852.468 ops/s
+Iteration   1: 918.087 ops/s
+Iteration   2: 927.906 ops/s
+Iteration   3: 828.235 ops/s
+Iteration   4: 825.557 ops/s
+Iteration   5: 924.285 ops/s
+
+# Run progress: 62.50% complete, ETA 00:03:04
+# Fork: 1 of 1
+# Warmup Iteration   1: 908.000 ops/s
+Iteration   1: 913.018 ops/s
+Iteration   2: 926.943 ops/s
+Iteration   3: 929.397 ops/s
+Iteration   4: 840.529 ops/s
+Iteration   5: 880.037 ops/s
+
+
+Result "org.spr.benchmarking.DBTestBench.benchmarkDbGetAllC":
+  897.985 ±(99.9%) 145.035 ops/s [Average]
+  (min, avg, max) = (840.529, 897.985, 929.397), stdev = 37.665
+  CI (99.9%): [752.950, 1043.020] (assumes normal distribution)
+
+
+# JMH version: 1.36
+# VM version: JDK 17.0.7, Java HotSpot(TM) 64-Bit Server VM, 17.0.7+8-LTS-224
+# VM invoker: /Users/prathamkundan/Desktop/bin/java/jdk-17.0.7.jdk/Contents/Home/bin/java
+# VM options: -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 100 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.spr.benchmarking.DBTestBench.benchmarkDbGetAllD
+
+# Run progress: 75.00% complete, ETA 00:02:03
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 905.035 ops/s
+Iteration   1: 1015.000 ops/s
+Iteration   2: 1025.787 ops/s
+Iteration   3: 979.630 ops/s
+Iteration   4: 998.343 ops/s
+Iteration   5: 1026.516 ops/s
+
+# Run progress: 87.50% complete, ETA 00:01:01
+# Fork: 1 of 1
+# Warmup Iteration   1: 928.149 ops/s
+Iteration   1: 988.306 ops/s
+Iteration   2: 960.534 ops/s
+Iteration   3: 982.238 ops/s
+Iteration   4: 1004.930 ops/s
+Iteration   5: 995.481 ops/s
+
+
+Result "org.spr.benchmarking.DBTestBench.benchmarkDbGetAllD":
+  986.298 ±(99.9%) 64.312 ops/s [Average]
+  (min, avg, max) = (960.534, 986.298, 1004.930), stdev = 16.702
+  CI (99.9%): [921.986, 1050.609] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:08:14
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                        Mode  Cnt    Score     Error  Units
+DBTestBench.benchmarkDbGetAllA  thrpt    5  525.891 ± 104.933  ops/s
+DBTestBench.benchmarkDbGetAllB  thrpt    5  712.369 ±  39.822  ops/s
+DBTestBench.benchmarkDbGetAllC  thrpt    5  897.985 ± 145.035  ops/s
+DBTestBench.benchmarkDbGetAllD  thrpt    5  986.298 ±  64.312  ops/s
+
+Benchmark result is saved to rsocket-db-results.csv

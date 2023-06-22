@@ -1,0 +1,169 @@
+# JMH version: 1.36
+# VM version: JDK 17.0.7, Java HotSpot(TM) 64-Bit Server VM, 17.0.7+8-LTS-224
+# VM invoker: /Users/prathamkundan/Desktop/bin/java/jdk-17.0.7.jdk/Contents/Home/bin/java
+# VM options: -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 10 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.spr.benchmarking.SizedTestBench.benchmarkSizedRequestResponseT10
+
+# Run progress: 0.00% complete, ETA 00:08:00
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 144.860 ops/s
+Iteration   1: 164.586 ops/s
+Iteration   2: 173.501 ops/s
+Iteration   3: 174.349 ops/s
+Iteration   4: 177.637 ops/s
+Iteration   5: 182.552 ops/s
+
+# Run progress: 12.50% complete, ETA 00:07:12
+# Fork: 1 of 1
+# Warmup Iteration   1: 173.808 ops/s
+Iteration   1: 184.143 ops/s
+Iteration   2: 181.321 ops/s
+Iteration   3: 178.568 ops/s
+Iteration   4: 183.390 ops/s
+Iteration   5: 182.181 ops/s
+
+
+Result "org.spr.benchmarking.SizedTestBench.benchmarkSizedRequestResponseT10":
+  181.921 ±(99.9%) 8.340 ops/s [Average]
+  (min, avg, max) = (178.568, 181.921, 184.143), stdev = 2.166
+  CI (99.9%): [173.580, 190.261] (assumes normal distribution)
+
+
+# JMH version: 1.36
+# VM version: JDK 17.0.7, Java HotSpot(TM) 64-Bit Server VM, 17.0.7+8-LTS-224
+# VM invoker: /Users/prathamkundan/Desktop/bin/java/jdk-17.0.7.jdk/Contents/Home/bin/java
+# VM options: -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 20 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.spr.benchmarking.SizedTestBench.benchmarkSizedRequestResponseT20
+
+# Run progress: 25.00% complete, ETA 00:06:10
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 166.608 ops/s
+Iteration   1: 177.353 ops/s
+Iteration   2: 177.969 ops/s
+Iteration   3: 175.434 ops/s
+Iteration   4: 175.533 ops/s
+Iteration   5: 181.279 ops/s
+
+# Run progress: 37.50% complete, ETA 00:05:10
+# Fork: 1 of 1
+# Warmup Iteration   1: 169.177 ops/s
+Iteration   1: 175.363 ops/s
+Iteration   2: 177.807 ops/s
+Iteration   3: 171.681 ops/s
+Iteration   4: 179.533 ops/s
+Iteration   5: 180.130 ops/s
+
+
+Result "org.spr.benchmarking.SizedTestBench.benchmarkSizedRequestResponseT20":
+  176.903 ±(99.9%) 13.309 ops/s [Average]
+  (min, avg, max) = (171.681, 176.903, 180.130), stdev = 3.456
+  CI (99.9%): [163.593, 190.212] (assumes normal distribution)
+
+
+# JMH version: 1.36
+# VM version: JDK 17.0.7, Java HotSpot(TM) 64-Bit Server VM, 17.0.7+8-LTS-224
+# VM invoker: /Users/prathamkundan/Desktop/bin/java/jdk-17.0.7.jdk/Contents/Home/bin/java
+# VM options: -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 10 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.spr.benchmarking.SizedTestBench.benchmarkSizedRequestStreamT10
+
+# Run progress: 50.00% complete, ETA 00:04:09
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 73.489 ops/s
+Iteration   1: 83.275 ops/s
+Iteration   2: 78.371 ops/s
+Iteration   3: 76.327 ops/s
+Iteration   4: 75.427 ops/s
+Iteration   5: 76.651 ops/s
+
+# Run progress: 62.50% complete, ETA 00:03:06
+# Fork: 1 of 1
+# Warmup Iteration   1: 73.905 ops/s
+Iteration   1: 78.746 ops/s
+Iteration   2: 79.147 ops/s
+Iteration   3: 77.601 ops/s
+Iteration   4: 77.701 ops/s
+Iteration   5: 76.720 ops/s
+
+
+Result "org.spr.benchmarking.SizedTestBench.benchmarkSizedRequestStreamT10":
+  77.983 ±(99.9%) 3.731 ops/s [Average]
+  (min, avg, max) = (76.720, 77.983, 79.147), stdev = 0.969
+  CI (99.9%): [74.252, 81.714] (assumes normal distribution)
+
+
+# JMH version: 1.36
+# VM version: JDK 17.0.7, Java HotSpot(TM) 64-Bit Server VM, 17.0.7+8-LTS-224
+# VM invoker: /Users/prathamkundan/Desktop/bin/java/jdk-17.0.7.jdk/Contents/Home/bin/java
+# VM options: -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 20 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.spr.benchmarking.SizedTestBench.benchmarkSizedRequestStreamT20
+
+# Run progress: 75.00% complete, ETA 00:02:04
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 67.416 ops/s
+Iteration   1: 77.146 ops/s
+Iteration   2: 75.681 ops/s
+Iteration   3: 76.187 ops/s
+Iteration   4: 76.510 ops/s
+Iteration   5: 76.845 ops/s
+
+# Run progress: 87.50% complete, ETA 00:01:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 76.044 ops/s
+Iteration   1: 82.406 ops/s
+Iteration   2: 81.141 ops/s
+Iteration   3: 80.183 ops/s
+Iteration   4: 79.792 ops/s
+Iteration   5: 81.398 ops/s
+
+
+Result "org.spr.benchmarking.SizedTestBench.benchmarkSizedRequestStreamT20":
+  80.984 ±(99.9%) 3.983 ops/s [Average]
+  (min, avg, max) = (79.792, 80.984, 82.406), stdev = 1.034
+  CI (99.9%): [77.001, 84.967] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:08:22
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                                         Mode  Cnt    Score    Error  Units
+SizedTestBench.benchmarkSizedRequestResponseT10  thrpt    5  181.921 ±  8.340  ops/s
+SizedTestBench.benchmarkSizedRequestResponseT20  thrpt    5  176.903 ± 13.309  ops/s
+SizedTestBench.benchmarkSizedRequestStreamT10    thrpt    5   77.983 ±  3.731  ops/s
+SizedTestBench.benchmarkSizedRequestStreamT20    thrpt    5   80.984 ±  3.983  ops/s
+
+Benchmark result is saved to rsocket-results.csv

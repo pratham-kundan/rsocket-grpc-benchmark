@@ -8,7 +8,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class BenchMarkRunner {
     public static void main(String[] args) throws Exception {
         Options options = new OptionsBuilder()
-                .include(TestBench.class.getName())
+                .include(TestBench.class.getSimpleName())
                 .resultFormat(ResultFormatType.CSV)
                 .result("grpc-db-results.csv")
                 .build();

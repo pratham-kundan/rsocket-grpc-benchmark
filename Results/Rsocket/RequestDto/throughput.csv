@@ -1,0 +1,5 @@
+Benchmark,Mode,Cnt,Score,Error,Units
+TestBenchDto.benchmarkRequestResponseDtoT10,thrpt,5,46659.501,±,3380.506,ops/s
+TestBenchDto.benchmarkRequestResponseDtoT20,thrpt,5,51905.149,±,4600.033,ops/s
+TestBenchDto.benchmarkRequestStreamDtoT10,thrpt,5,6814.850,±,426.520,ops/s
+TestBenchDto.benchmarkRequestStreamDtoT20,thrpt,5,7268.562,±,186.373,ops/s

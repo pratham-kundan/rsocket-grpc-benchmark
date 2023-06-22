@@ -1,0 +1,5 @@
+Benchmark,Mode,Cnt,Score,Error,Units
+SizedTestBench.benchmarkRequestResponseT10,thrpt,5,371.432,±,14.028,ops/s
+SizedTestBench.benchmarkRequestResponseT20,thrpt,5,426.024,±,24.473,ops/s
+SizedTestBench.benchmarkRequestStreamT10,thrpt,5,136.635,±,5.111,ops/s
+SizedTestBench.benchmarkRequestStreamT20,thrpt,5,138.799,±,4.450,ops/s

@@ -1,0 +1,5 @@
+Benchmark,Mode,Cnt,Score,Error,Units
+JmhBenchmarks.SizedTestBench.benchmarkRequestResponseT10,thrpt,5,42.054,±,2.795,ops/s
+JmhBenchmarks.SizedTestBench.benchmarkRequestResponseT20,thrpt,5,40.051,±,2.817,ops/s
+JmhBenchmarks.SizedTestBench.benchmarkRequestStreamT10,thrpt,5,12.882,±,1.733,ops/s
+JmhBenchmarks.SizedTestBench.benchmarkRequestStreamT20,thrpt,5,12.197,±,1.486,ops/s

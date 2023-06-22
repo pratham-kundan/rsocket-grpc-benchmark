@@ -1,0 +1,5 @@
+Benchmark,Mode,Cnt,Score,Error,Units
+DBTestBench.benchmarkDbGetAllA,thrpt,5,858.710,±,70.829,ops/s
+DBTestBench.benchmarkDbGetAllB,thrpt,5,1121.843,±,129.859,ops/s
+DBTestBench.benchmarkDbGetAllC,thrpt,5,985.268,±,81.749,ops/s
+DBTestBench.benchmarkDbGetAllD,thrpt,5,687.395,±,161.388,ops/s
