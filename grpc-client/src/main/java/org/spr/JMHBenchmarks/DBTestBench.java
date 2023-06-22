@@ -1,4 +1,4 @@
-package org.spr.JmhBenchmarks;
+package org.spr.JMHBenchmarks;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

@@ -1,4 +1,4 @@
-package org.spr.JmhBenchmarks;
+package org.spr.JMHBenchmarks;
 
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;

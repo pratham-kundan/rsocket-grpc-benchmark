@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/grpc-generated/spring-grpc.grpc-generated.main.iml" filepath="$PROJECT_DIR$/.idea/modules/grpc-generated/spring-grpc.grpc-generated.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/grpc-client/spring-grpc.grpc-client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/grpc-client/spring-grpc.grpc-client.main.iml" />
     </modules>
   </component>
 </project>

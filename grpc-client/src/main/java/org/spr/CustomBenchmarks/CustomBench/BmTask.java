@@ -1,4 +1,4 @@
-package org.spr.CustomBenchmarks.Brunch;
+package org.spr.CustomBenchmarks.CustomBench;
 
 public interface BmTask {
     void run();

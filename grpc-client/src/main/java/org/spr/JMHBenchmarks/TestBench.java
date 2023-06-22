@@ -1,23 +1,24 @@
-package org.spr.JmhBenchmarks;
+package org.spr.JMHBenchmarks;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.openjdk.jmh.annotations.*;
 import org.spr.Requests;
-import org.spr.protos.SimpleSizedMessage;
-import org.spr.protos.SizedMessageServiceGrpc;
+import org.spr.protos.MessageDbServiceGrpc;
+import org.spr.protos.MessageServiceGrpc;
+import org.spr.protos.SimpleMessage;
 
 import java.util.List;
 
 /**
  * for Protobuf
  * This class contains functions to benchmark the throughput of
- * server functions returning large objects.
+ * server functions returning echos.
  */
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 2)
 @Threads(100)
-public class SizedTestBench {
+public class TestBench {
 
     @Benchmark
     @Fork(value = 1, warmups = 1)
@@ -25,7 +26,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkRequestResponseT10(ExecutionPlan execPlan) {
-        SimpleSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 30);
+        SimpleMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
@@ -34,7 +35,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkRequestResponseT20(ExecutionPlan execPlan) {
-        SimpleSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 30);
+        SimpleMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
@@ -43,7 +44,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
-        List<SimpleSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 100);
+        List<SimpleMessage> response = Requests.requestStream(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
@@ -52,22 +53,23 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
-        List<SimpleSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 100);
+        List<SimpleMessage> response = Requests.requestStream(execPlan.bStub, "Hello from client");
     }
 
     @State(Scope.Thread)
     public static class ExecutionPlan {
         public ManagedChannel channel = ManagedChannelBuilder
                 .forAddress("localhost", 8787)
-                .maxInboundMessageSize(40 * 1024 * 1024)
                 .usePlaintext()
                 .build();
 
-        public SizedMessageServiceGrpc.SizedMessageServiceBlockingStub bStub = SizedMessageServiceGrpc.newBlockingStub(channel);
+        public MessageServiceGrpc.MessageServiceBlockingStub bStub;
+        public MessageDbServiceGrpc.MessageDbServiceBlockingStub dbBStub;
 
         @Setup(Level.Invocation)
         public void setUp() {
-//            bStub = SizedMessageServiceGrpc.newBlockingStub(channel);
+            bStub = MessageServiceGrpc.newBlockingStub(channel);
+            dbBStub = MessageDbServiceGrpc.newBlockingStub(channel);
         }
     }
 

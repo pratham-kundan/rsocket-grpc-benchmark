@@ -11,18 +11,28 @@ repositories {
     mavenCentral()
 }
 
-def grpc_version = '1.55.1'
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 def protobuf_version = '3.16.3'
 
 dependencies {
     implementation 'org.openjdk.jmh:jmh-core:1.36'
     annotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
 
+    implementation 'org.springframework.boot:spring-boot-starter-rsocket'
+
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    implementation project(':grpc-generated')
-    implementation 'net.devh:grpc-spring-boot-starter:2.14.0.RELEASE'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation "com.google.protobuf:protobuf-java:${protobuf_version}"
+    implementation project(":grpc-generated")
 }
 
 task runBm(type: JavaExec) {

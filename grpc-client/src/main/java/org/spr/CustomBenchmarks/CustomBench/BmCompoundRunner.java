@@ -1,4 +1,4 @@
-package org.spr.CustomBenchmarks.Brunch;
+package org.spr.CustomBenchmarks.CustomBench;
 
 import java.time.Duration;
 import java.util.ArrayList;

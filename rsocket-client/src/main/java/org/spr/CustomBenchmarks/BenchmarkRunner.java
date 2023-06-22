@@ -1,8 +1,10 @@
 package org.spr.CustomBenchmarks;
 
 import org.spr.CustomBenchmarks.CustomBench.BmCompoundRunner;
+import org.spr.requests.ProtoRequests;
 
 import java.time.Duration;
+
 
 public class BenchmarkRunner {
     public static void simpleBenchMark() throws Exception {
@@ -27,16 +29,52 @@ public class BenchmarkRunner {
     }
 
     public static void sizedBenchMark() throws Exception {
-        BmCompoundRunner sizedRequestRunner = new BmCompoundRunner.Builder()
-                .addBenchmark(SizedReqResBenchMark.class, Duration.ofMinutes(1), 10, 2)
-                .addBenchmark(SizedReqResBenchMark.class, Duration.ofMinutes(1), 20, 2)
+        BmCompoundRunner sizedQueryRunner = new BmCompoundRunner.Builder()
+                .addBenchmark(SizedReqResBenchmark.class, Duration.ofMinutes(1), 10, 2)
+                .addBenchmark(SizedReqResBenchmark.class, Duration.ofMinutes(1), 20, 2)
                 .addBenchmark(SizedReqStreamBenchmark.class, Duration.ofMinutes(1), 10, 2)
                 .addBenchmark(SizedReqStreamBenchmark.class, Duration.ofMinutes(1), 20, 2)
                 .build();
-        sizedRequestRunner.runBenchMark();
+
+        sizedQueryRunner.runBenchMark();
     }
 
     public static void main(String[] args) throws Exception {
         sizedBenchMark();
+    }
+
+    public static class ReqResBenchmark extends BaseProtoBenchmark {
+        @Override
+        public void run() {
+            ProtoRequests.requestResponseProto(rSocketRequester, "Hello from Client");
+        }
+    }
+
+    public static class SizedReqResBenchmark extends BaseProtoBenchmark {
+        @Override
+        public void run() {
+            ProtoRequests.sizedRequestResponseProto(rSocketRequester, 3);
+        }
+    }
+
+    public static class ReqStreamBenchmark extends BaseProtoBenchmark {
+        @Override
+        public void run() {
+            ProtoRequests.requestStreamProto(rSocketRequester, "Hello from Client");
+        }
+    }
+
+    public static class SizedReqStreamBenchmark extends BaseProtoBenchmark {
+        @Override
+        public void run() {
+            ProtoRequests.sizedRequestStreamProto(rSocketRequester, 10);
+        }
+    }
+
+    public static class DbReqStreamBenchmark extends BaseProtoBenchmark {
+        @Override
+        public void run() {
+            ProtoRequests.getAllMessagesProto(rSocketRequester);
+        }
     }
 }

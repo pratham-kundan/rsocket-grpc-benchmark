@@ -11,4 +11,6 @@ rootProject.name = 'spring-grpc'
 include 'grpc-server'
 include 'grpc-generated'
 include 'grpc-client'
+include 'rsocket-server'
+include 'rsocket-client'
 
