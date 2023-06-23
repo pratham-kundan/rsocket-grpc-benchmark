@@ -16,3 +16,5 @@ To run the grpc-server use:
 To run the benchmark for rsockets use:
 
 `./gradlew :grpc-client:runBm`
+
+(Requires a running mongodb instance to run the database related benchmarks.)
