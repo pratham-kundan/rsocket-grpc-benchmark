@@ -33,11 +33,12 @@ dependencies {
 
     implementation "com.google.protobuf:protobuf-java:${protobuf_version}"
     implementation project(":grpc-generated")
+    implementation project(":custom-bench")
 }
 
-task runBm(type: JavaExec) {
+tasks.register('runBm', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'org.spr.JMHBenchmarks.BenchMarkRunner'
+    mainClass = 'org.spr.JMHBenchmarks.RsJmhRunner'
 }
 
 test {

@@ -4,9 +4,8 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.openjdk.jmh.annotations.*;
 import org.spr.Requests;
-import org.spr.protos.MessageDbServiceGrpc;
 import org.spr.protos.MessageServiceGrpc;
-import org.spr.protos.SimpleMessage;
+import org.spr.protos.ProtoMessage;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class TestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkRequestResponseT10(ExecutionPlan execPlan) {
-        SimpleMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
+        ProtoMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
@@ -35,7 +34,7 @@ public class TestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkRequestResponseT20(ExecutionPlan execPlan) {
-        SimpleMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
+        ProtoMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
@@ -44,7 +43,7 @@ public class TestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
-        List<SimpleMessage> response = Requests.requestStream(execPlan.bStub, "Hello from client");
+        List<ProtoMessage> response = Requests.requestStream(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
@@ -53,23 +52,28 @@ public class TestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
-        List<SimpleMessage> response = Requests.requestStream(execPlan.bStub, "Hello from client");
+        List<ProtoMessage> response = Requests.requestStream(execPlan.bStub, "Hello from client");
     }
 
     @State(Scope.Thread)
     public static class ExecutionPlan {
-        public ManagedChannel channel = ManagedChannelBuilder
-                .forAddress("localhost", 8787)
-                .usePlaintext()
-                .build();
+        public ManagedChannel channel;
 
         public MessageServiceGrpc.MessageServiceBlockingStub bStub;
-        public MessageDbServiceGrpc.MessageDbServiceBlockingStub dbBStub;
 
-        @Setup(Level.Invocation)
+        @Setup(Level.Iteration)
         public void setUp() {
+            channel = ManagedChannelBuilder
+                    .forAddress("localhost", 8787)
+                    .usePlaintext()
+                    .build();
+
             bStub = MessageServiceGrpc.newBlockingStub(channel);
-            dbBStub = MessageDbServiceGrpc.newBlockingStub(channel);
+        }
+
+        @TearDown(Level.Iteration)
+        public void tearDown() {
+            channel.shutdown();
         }
     }
 

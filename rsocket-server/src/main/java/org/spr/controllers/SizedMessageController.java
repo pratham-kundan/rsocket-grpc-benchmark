@@ -2,7 +2,7 @@ package org.spr.controllers;
 
 import com.google.protobuf.ByteString;
 import org.spr.data.SizedMessage;
-import org.spr.protos.SimpleSizedMessage;
+import org.spr.protos.ProtoSizedMessage;
 import org.spr.protos.SizedMessageRequest;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
@@ -50,9 +50,9 @@ public class SizedMessageController {
      * @return A Mono containing a SizedMessage Data Object
      */
     @MessageMapping("sized-request-response-proto")
-    public Mono<SimpleSizedMessage> sizedRequestResponseProto(SizedMessageRequest request) {
+    public Mono<ProtoSizedMessage> sizedRequestResponseProto(SizedMessageRequest request) {
         int sizeMb = request.getSizeMb();
-        SimpleSizedMessage.Builder message = SimpleSizedMessage.newBuilder();
+        ProtoSizedMessage.Builder message = ProtoSizedMessage.newBuilder();
         for (int i = 0; i < sizeMb; i++) {
             message.addData(ByteString.copyFrom(new byte[1024 * 1024]));
         }
@@ -66,10 +66,10 @@ public class SizedMessageController {
      * @return A Flux containing SizedMessage protobuf (of 1MB each)
      */
     @MessageMapping("sized-request-stream-proto")
-    public Flux<SimpleSizedMessage> sizedRequestStreamProto(SizedMessageRequest request) {
+    public Flux<ProtoSizedMessage> sizedRequestStreamProto(SizedMessageRequest request) {
         int sizeMb = request.getSizeMb();
         return Flux.range(0, sizeMb)
-                .map((integer) -> SimpleSizedMessage
+                .map((integer) -> ProtoSizedMessage
                         .newBuilder()
                         .addData(ByteString.copyFrom(new byte[1024 * 1024]))
                         .build()

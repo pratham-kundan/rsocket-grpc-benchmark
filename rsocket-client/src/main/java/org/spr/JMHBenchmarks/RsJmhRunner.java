@@ -5,10 +5,10 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-public class BenchMarkRunner {
+public class RsJmhRunner {
     public static void main(String[] args) throws Exception {
         Options options = new OptionsBuilder()
-                .include(TestBench.class.getSimpleName())
+                .include(ProtoSizedTestBench.class.getName())
                 .resultFormat(ResultFormatType.CSV)
                 .result("rsocket-results.csv")
                 .build();

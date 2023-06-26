@@ -4,12 +4,12 @@ option java_package = "org.spr.protos";
 option java_multiple_files = true;
 option java_outer_classname = "Messages";
 
-message SimpleMessage {
+message ProtoMessage {
   string id = 1;
   string body = 2;
 }
 
-message SimpleSizedMessage {
+message ProtoSizedMessage {
   repeated bytes data = 1;
 }
 
@@ -18,20 +18,20 @@ message SizedMessageRequest {
 }
 
 service SizedMessageService {
-  rpc ping (SizedMessageRequest) returns (SimpleSizedMessage) {};
+  rpc ping (SizedMessageRequest) returns (ProtoSizedMessage) {};
 
-  rpc echoStream(SizedMessageRequest) returns (stream SimpleSizedMessage) {};
+  rpc echoStream(SizedMessageRequest) returns (stream ProtoSizedMessage) {};
 }
 
 service MessageService {
-  rpc ping (SimpleMessage) returns (SimpleMessage) {};
+  rpc ping (ProtoMessage) returns (ProtoMessage) {};
 
-  rpc echoStream (SimpleMessage) returns (stream SimpleMessage) {};
+  rpc echoStream (ProtoMessage) returns (stream ProtoMessage) {};
 }
 
 service MessageDbService {
-  rpc create (SimpleMessage) returns (SimpleMessage) {};
+  rpc create (ProtoMessage) returns (ProtoMessage) {};
 
-  rpc getAll (SimpleMessage) returns (stream SimpleMessage) {};
+  rpc getAll (ProtoMessage) returns (stream ProtoMessage) {};
 }
 

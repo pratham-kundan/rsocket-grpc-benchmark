@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Requests {
-    public static SimpleMessage requestResponse(MessageServiceGrpc.MessageServiceBlockingStub stub, String requestText) {
-        SimpleMessage message = SimpleMessage
+    public static ProtoMessage requestResponse(MessageServiceGrpc.MessageServiceBlockingStub stub, String requestText) {
+        ProtoMessage message = ProtoMessage
                 .newBuilder()
                 .setBody("Hello from client " + Instant.now())
                 .build();
@@ -16,34 +16,34 @@ public class Requests {
         return stub.ping(message);
     }
 
-    public static List<SimpleMessage> requestStream(MessageServiceGrpc.MessageServiceBlockingStub stub, String requestText) {
-        SimpleMessage message = SimpleMessage
+    public static List<ProtoMessage> requestStream(MessageServiceGrpc.MessageServiceBlockingStub stub, String requestText) {
+        ProtoMessage message = ProtoMessage
                 .newBuilder()
                 .setBody("Hello from client " + Instant.now())
                 .build();
-        List<SimpleMessage> simpleMessageList = new ArrayList<>();
+        List<ProtoMessage> protoMessageList = new ArrayList<>();
 
         stub.echoStream(message)
-                .forEachRemaining(simpleMessageList::add);
+                .forEachRemaining(protoMessageList::add);
 
-        return simpleMessageList;
+        return protoMessageList;
     }
 
-    public static List<SimpleMessage> getAllMessages(MessageDbServiceGrpc.MessageDbServiceBlockingStub stub) {
-        List<SimpleMessage> simpleMessageList = new ArrayList<>();
+    public static List<ProtoMessage> getAllMessages(MessageDbServiceGrpc.MessageDbServiceBlockingStub stub) {
+        List<ProtoMessage> protoMessageList = new ArrayList<>();
 
         stub
-                .getAll(SimpleMessage.newBuilder().build())
-                .forEachRemaining(simpleMessageList::add);
+                .getAll(ProtoMessage.newBuilder().build())
+                .forEachRemaining(protoMessageList::add);
 
-        return simpleMessageList;
+        return protoMessageList;
     }
 
-    public static SimpleMessage createMessage(MessageDbServiceGrpc.MessageDbServiceBlockingStub stub, SimpleMessage request) {
+    public static ProtoMessage createMessage(MessageDbServiceGrpc.MessageDbServiceBlockingStub stub, ProtoMessage request) {
         return stub.create(request);
     }
 
-    public static SimpleSizedMessage sizedRequestResponse(SizedMessageServiceGrpc.SizedMessageServiceBlockingStub stub, int sizeMb) {
+    public static ProtoSizedMessage sizedRequestResponse(SizedMessageServiceGrpc.SizedMessageServiceBlockingStub stub, int sizeMb) {
         return stub.ping(SizedMessageRequest
                 .newBuilder()
                 .setSizeMb(sizeMb)
@@ -51,8 +51,8 @@ public class Requests {
         );
     }
 
-    public static List<SimpleSizedMessage> sizedRequestStream(SizedMessageServiceGrpc.SizedMessageServiceBlockingStub stub, int sizeMb) {
-        List<SimpleSizedMessage> response = new ArrayList<>();
+    public static List<ProtoSizedMessage> sizedRequestStream(SizedMessageServiceGrpc.SizedMessageServiceBlockingStub stub, int sizeMb) {
+        List<ProtoSizedMessage> response = new ArrayList<>();
         stub.echoStream(SizedMessageRequest
                 .newBuilder()
                 .setSizeMb(sizeMb)

@@ -5,8 +5,7 @@ import io.grpc.ManagedChannelBuilder;
 import org.openjdk.jmh.annotations.*;
 import org.spr.Requests;
 import org.spr.protos.MessageDbServiceGrpc;
-import org.spr.protos.MessageServiceGrpc;
-import org.spr.protos.SimpleMessage;
+import org.spr.protos.ProtoMessage;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class DBTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkDbGetAllA(ExecutionPlan execPlan) {
-        List<SimpleMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
+        List<ProtoMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
@@ -33,7 +32,7 @@ public class DBTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkDbGetAllB(ExecutionPlan execPlan) {
-        List<SimpleMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
+        List<ProtoMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
@@ -42,7 +41,7 @@ public class DBTestBench {
     @Warmup(iterations = 1)
     @Threads(50)
     public void benchmarkDbGetAllC(ExecutionPlan execPlan) {
-        List<SimpleMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
+        List<ProtoMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
@@ -51,23 +50,29 @@ public class DBTestBench {
     @Warmup(iterations = 1)
     @Threads(100)
     public void benchmarkDbGetAllD(ExecutionPlan execPlan) {
-        List<SimpleMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
+        List<ProtoMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
     }
 
     @State(Scope.Thread)
     public static class ExecutionPlan {
-        public ManagedChannel channel = ManagedChannelBuilder
-                .forAddress("localhost", 8787)
-                .usePlaintext()
-                .build();
+        public ManagedChannel channel;
 
-        public MessageServiceGrpc.MessageServiceBlockingStub bStub;
         public MessageDbServiceGrpc.MessageDbServiceBlockingStub dbBStub;
 
-        @Setup(Level.Invocation)
+        @Setup(Level.Iteration)
         public void setUp() {
-            bStub = MessageServiceGrpc.newBlockingStub(channel);
+            channel = ManagedChannelBuilder
+                    .forAddress("localhost", 8787)
+                    .maxInboundMessageSize(40 * 1024 * 1024)
+                    .usePlaintext()
+                    .build();
+
             dbBStub = MessageDbServiceGrpc.newBlockingStub(channel);
+        }
+
+        @TearDown(Level.Iteration)
+        public void tearDown() {
+            channel.shutdown();
         }
     }
 

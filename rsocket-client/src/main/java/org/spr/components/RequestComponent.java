@@ -1,6 +1,6 @@
 package org.spr.components;
 
-import org.spr.protos.SimpleMessage;
+import org.spr.protos.ProtoMessage;
 import org.spr.requests.ProtoRequests;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.rsocket.RSocketRequester;
@@ -20,7 +20,7 @@ public class RequestComponent {
 
     public void fireRequests() {
         // ensure that you set the active profile appropriately (to protobuf or json)
-        SimpleMessage response = ProtoRequests.requestResponseProto(rSocketRequester, "Hello");
+        ProtoMessage response = ProtoRequests.requestResponse(rSocketRequester, "Hello");
 
         System.out.println(response.toString());
     }

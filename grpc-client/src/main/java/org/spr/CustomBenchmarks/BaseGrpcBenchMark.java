@@ -2,7 +2,7 @@ package org.spr.CustomBenchmarks;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import org.spr.CustomBenchmarks.CustomBench.BmTask;
+import org.spr.CustomBench.BmTask;
 import org.spr.protos.MessageDbServiceGrpc;
 import org.spr.protos.MessageServiceGrpc;
 import org.spr.protos.SizedMessageServiceGrpc;

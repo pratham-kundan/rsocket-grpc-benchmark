@@ -4,7 +4,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.openjdk.jmh.annotations.*;
 import org.spr.Requests;
-import org.spr.protos.SimpleSizedMessage;
+import org.spr.protos.ProtoSizedMessage;
 import org.spr.protos.SizedMessageServiceGrpc;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkRequestResponseT10(ExecutionPlan execPlan) {
-        SimpleSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 30);
+        ProtoSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 5);
     }
 
     @Benchmark
@@ -34,7 +34,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkRequestResponseT20(ExecutionPlan execPlan) {
-        SimpleSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 30);
+        ProtoSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 5);
     }
 
     @Benchmark
@@ -43,7 +43,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
-        List<SimpleSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 100);
+        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 20);
     }
 
     @Benchmark
@@ -52,22 +52,29 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
-        List<SimpleSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 100);
+        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 20);
     }
 
     @State(Scope.Thread)
     public static class ExecutionPlan {
-        public ManagedChannel channel = ManagedChannelBuilder
-                .forAddress("localhost", 8787)
-                .maxInboundMessageSize(40 * 1024 * 1024)
-                .usePlaintext()
-                .build();
+        public ManagedChannel channel;
 
-        public SizedMessageServiceGrpc.SizedMessageServiceBlockingStub bStub = SizedMessageServiceGrpc.newBlockingStub(channel);
+        public SizedMessageServiceGrpc.SizedMessageServiceBlockingStub bStub;
 
-        @Setup(Level.Invocation)
+        @Setup(Level.Iteration)
         public void setUp() {
-//            bStub = SizedMessageServiceGrpc.newBlockingStub(channel);
+            channel = ManagedChannelBuilder
+                    .forAddress("localhost", 8787)
+                    .maxInboundMessageSize(40 * 1024 * 1024)
+                    .usePlaintext()
+                    .build();
+
+            bStub = SizedMessageServiceGrpc.newBlockingStub(channel);
+        }
+
+        @TearDown(Level.Iteration)
+        public void tearDown() {
+            channel.shutdown();
         }
     }
 

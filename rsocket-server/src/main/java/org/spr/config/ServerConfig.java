@@ -1,5 +1,6 @@
 package org.spr.config;
 
+import io.rsocket.frame.decoder.PayloadDecoder;
 import org.springframework.boot.rsocket.server.RSocketServerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,9 @@ public class ServerConfig {
      */
     @Bean
     public RSocketServerCustomizer serverCustomizer() {
-        return (server) -> server.fragment(16777215);
+        return (server) -> server
+                .fragment(16777215)
+                .payloadDecoder(PayloadDecoder.ZERO_COPY);
     }
 
     /**

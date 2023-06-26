@@ -1,5 +1,6 @@
 package org.spr.CustomBenchmarks;
 
+import io.rsocket.frame.decoder.PayloadDecoder;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.http.codec.protobuf.ProtobufDecoder;
@@ -19,6 +20,7 @@ public class RequesterUtils {
                         .decoder(new ProtobufDecoder())
                         .build()
                 )
+                .rsocketConnector(connector -> connector.payloadDecoder(PayloadDecoder.ZERO_COPY))
                 .dataMimeType(new MimeType("application", "x-protobuf"))
                 .tcp(host, port);
     }

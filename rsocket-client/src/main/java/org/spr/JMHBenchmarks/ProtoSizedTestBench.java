@@ -1,7 +1,8 @@
 package org.spr.JMHBenchmarks;
 
 import org.openjdk.jmh.annotations.*;
-import org.spr.protos.SimpleSizedMessage;
+import org.spr.CustomBenchmarks.RequesterUtils;
+import org.spr.protos.ProtoSizedMessage;
 import org.spr.requests.ProtoRequests;
 import org.springframework.http.codec.protobuf.ProtobufDecoder;
 import org.springframework.http.codec.protobuf.ProtobufEncoder;
@@ -26,7 +27,7 @@ public class ProtoSizedTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkSizedRequestResponseT10(ExecutionPlan execPlan) {
-        SimpleSizedMessage response = ProtoRequests.sizedRequestResponseProto(execPlan.rSocketRequester, 30);
+        ProtoSizedMessage response = ProtoRequests.sizedRequestResponse(execPlan.rSocketRequester, 5);
     }
 
     @Benchmark
@@ -35,7 +36,7 @@ public class ProtoSizedTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkSizedRequestResponseT20(ExecutionPlan execPlan) {
-        SimpleSizedMessage response = ProtoRequests.sizedRequestResponseProto(execPlan.rSocketRequester, 30);
+        ProtoSizedMessage response = ProtoRequests.sizedRequestResponse(execPlan.rSocketRequester, 5);
     }
 
     @Benchmark
@@ -44,7 +45,7 @@ public class ProtoSizedTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkSizedRequestStreamT10(ExecutionPlan execPlan) {
-        List<SimpleSizedMessage> response = ProtoRequests.sizedRequestStreamProto(execPlan.rSocketRequester, 10);
+        List<ProtoSizedMessage> response = ProtoRequests.sizedRequestStream(execPlan.rSocketRequester, 20);
     }
 
     @Benchmark
@@ -53,25 +54,22 @@ public class ProtoSizedTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkSizedRequestStreamT20(ExecutionPlan execPlan) {
-        List<SimpleSizedMessage> response = ProtoRequests.sizedRequestStreamProto(execPlan.rSocketRequester, 10);
+        List<ProtoSizedMessage> response = ProtoRequests.sizedRequestStream(execPlan.rSocketRequester, 20);
     }
 
 
     @State(Scope.Thread)
     public static class ExecutionPlan {
-        public RSocketRequester rSocketRequester = RSocketRequester
-                .builder()
-                .rsocketStrategies(RSocketStrategies
-                        .builder()
-                        .encoder(new ProtobufEncoder())
-                        .decoder(new ProtobufDecoder())
-                        .build()
-                )
-                .dataMimeType(new MimeType("application", "x-protobuf"))
-                .tcp("localhost", 8989);
+        public RSocketRequester rSocketRequester;
 
-        @Setup(Level.Invocation)
+        @Setup(Level.Iteration)
         public void setUp() {
+            rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
+        }
+
+        @TearDown(Level.Iteration)
+        public void tearDown() {
+            rSocketRequester.dispose();
         }
     }
 

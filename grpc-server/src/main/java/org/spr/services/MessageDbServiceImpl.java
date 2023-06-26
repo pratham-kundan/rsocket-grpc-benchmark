@@ -4,7 +4,7 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.spr.data.Message;
 import org.spr.protos.MessageDbServiceGrpc;
-import org.spr.protos.SimpleMessage;
+import org.spr.protos.ProtoMessage;
 import org.spr.repositories.MessageRepository;
 import org.spr.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
      * @param responseObserver responseObserver to publish data to
      */
     @Override
-    public void create(SimpleMessage request, StreamObserver<SimpleMessage> responseObserver) {
+    public void create(ProtoMessage request, StreamObserver<ProtoMessage> responseObserver) {
         Message saved = messageRepository.save(MessageUtils.protoToMessage(request));
-        responseObserver.onNext(SimpleMessage
+        responseObserver.onNext(ProtoMessage
                 .newBuilder()
                 .setId(saved.getId())
                 .build());
@@ -40,7 +40,7 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
      * @param responseObserver responseObserver to publish data to
      */
     @Override
-    public void getAll(SimpleMessage request, StreamObserver<SimpleMessage> responseObserver) {
+    public void getAll(ProtoMessage request, StreamObserver<ProtoMessage> responseObserver) {
         messageRepository
                 .findAll()
                 .stream()

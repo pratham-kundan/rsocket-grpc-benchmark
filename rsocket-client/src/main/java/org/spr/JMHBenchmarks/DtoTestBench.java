@@ -1,6 +1,7 @@
 package org.spr.JMHBenchmarks;
 
 import org.openjdk.jmh.annotations.*;
+import org.spr.CustomBenchmarks.RequesterUtils;
 import org.spr.data.MessageDto;
 import org.spr.requests.JsonRequests;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
@@ -58,19 +59,16 @@ public class DtoTestBench {
 
     @State(Scope.Thread)
     public static class ExecutionPlan {
-        public RSocketRequester rSocketRequester = RSocketRequester
-                .builder()
-                .rsocketStrategies(RSocketStrategies
-                        .builder()
-                        .encoder(new Jackson2JsonEncoder())
-                        .decoder(new Jackson2JsonDecoder())
-                        .build()
-                )
-                .dataMimeType(MimeTypeUtils.APPLICATION_JSON)
-                .tcp("localhost", 8989);
+        public RSocketRequester rSocketRequester;
 
-        @Setup(Level.Invocation)
+        @Setup(Level.Iteration)
         public void setUp() {
+            rSocketRequester = RequesterUtils.newJsonRequester("localhost", 8989);
+        }
+
+        @TearDown(Level.Iteration)
+        public void tearDown() {
+            rSocketRequester.dispose();
         }
     }
 

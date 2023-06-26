@@ -1,7 +1,7 @@
 package org.spr.controllers;
 
 import org.spr.data.MessageDto;
-import org.spr.protos.SimpleMessage;
+import org.spr.protos.ProtoMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
@@ -31,8 +31,8 @@ public class MessageController {
      */
     @MessageMapping("request-stream")
     public Flux<String> echoStream(String request) {
-        Stream<String> responseStream = Stream.iterate("Responding to: " + request + " at:" + Instant.now(), s -> s);
-        return Flux.fromStream(responseStream).take(200);
+        return Flux.range(0, 200)
+                .map(i -> "Responding to: " + request + " at:" + Instant.now());
     }
 
     /**
@@ -54,8 +54,8 @@ public class MessageController {
      */
     @MessageMapping("request-stream-dto")
     public Flux<MessageDto> echoStream(MessageDto request) {
-        Stream<MessageDto> responseStream = Stream.iterate(new MessageDto("", "Responding to: " + request + " at:" + Instant.now()), s -> s);
-        return Flux.fromStream(responseStream).take(200);
+        return Flux.range(0, 200)
+                .map(i -> new MessageDto("", "Responding to: " + request + " at:" + Instant.now()));
     }
 
     /**
@@ -65,8 +65,8 @@ public class MessageController {
      * @return Mono containing object with request-text with timestamp
      */
     @MessageMapping("request-response-proto")
-    public Mono<SimpleMessage> echo(SimpleMessage request) {
-        SimpleMessage response = SimpleMessage
+    public Mono<ProtoMessage> echo(ProtoMessage request) {
+        ProtoMessage response = ProtoMessage
                 .newBuilder()
                 .setBody("Acknowledged: " + request.getBody() + " at:" + Instant.now())
                 .build();
@@ -80,10 +80,10 @@ public class MessageController {
      * @return Flux containing protobuf with request-text with timestamp
      */
     @MessageMapping("request-stream-proto")
-    public Flux<SimpleMessage> echoStream(SimpleMessage request) {
+    public Flux<ProtoMessage> echoStream(ProtoMessage request) {
         return Flux.
                 range(0, 200)
-                .map(i -> SimpleMessage
+                .map(i -> ProtoMessage
                         .newBuilder()
                         .setBody("Responding to: " + request.getBody() + " at:" + Instant.now())
                         .build()

@@ -25,7 +25,6 @@ public class ProtobufConfiguration {
     public RSocketRequester rSocketRequester(RSocketStrategies rSocketStrategies) {
         return RSocketRequester.builder()
                 .rsocketStrategies(rSocketStrategies)
-
                 .dataMimeType(new MimeType("application", "x-protobuf"))
                 .tcp("localhost", 8989);
     }

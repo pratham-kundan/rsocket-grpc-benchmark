@@ -5,10 +5,10 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-public class BenchMarkRunner {
+public class GrpcJmhRunner {
     public static void main(String[] args) throws Exception {
         Options options = new OptionsBuilder()
-                .include(TestBench.class.getSimpleName())
+                .include(SizedTestBench.class.getSimpleName())
                 .resultFormat(ResultFormatType.CSV)
                 .result("grpc-db-results.csv")
                 .build();

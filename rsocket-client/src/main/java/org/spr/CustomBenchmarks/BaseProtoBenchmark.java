@@ -1,6 +1,6 @@
 package org.spr.CustomBenchmarks;
 
-import org.spr.CustomBenchmarks.CustomBench.BmTask;
+import org.spr.CustomBench.BmTask;
 import org.springframework.messaging.rsocket.RSocketRequester;
 
 public class BaseProtoBenchmark implements BmTask {

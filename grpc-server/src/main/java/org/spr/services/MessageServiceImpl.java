@@ -3,7 +3,7 @@ package org.spr.services;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.spr.protos.MessageServiceGrpc;
-import org.spr.protos.SimpleMessage;
+import org.spr.protos.ProtoMessage;
 
 import java.time.Instant;
 
@@ -19,8 +19,8 @@ public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBas
      * @param responseObserver responseObserver to publish data to
      */
     @Override
-    public void ping(SimpleMessage request, StreamObserver<SimpleMessage> responseObserver) {
-        SimpleMessage response = SimpleMessage
+    public void ping(ProtoMessage request, StreamObserver<ProtoMessage> responseObserver) {
+        ProtoMessage response = ProtoMessage
                 .newBuilder()
                 .setBody("Acknowledged: " + request.getBody() + " at: " + Instant.now())
                 .build();
@@ -35,9 +35,9 @@ public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBas
      * @param responseObserver responseObserver to stream data to
      */
     @Override
-    public void echoStream(SimpleMessage request, StreamObserver<SimpleMessage> responseObserver) {
+    public void echoStream(ProtoMessage request, StreamObserver<ProtoMessage> responseObserver) {
         for (int i = 0; i < 200; i++) {
-            SimpleMessage response = SimpleMessage.newBuilder()
+            ProtoMessage response = ProtoMessage.newBuilder()
                     .setBody("Acknowledged: " + request.getBody() + " at: " + Instant.now())
                     .build();
 

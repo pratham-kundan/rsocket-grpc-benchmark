@@ -1,7 +1,7 @@
 package org.spr.controllers;
 
 import org.spr.data.MessageDto;
-import org.spr.protos.SimpleMessage;
+import org.spr.protos.ProtoMessage;
 import org.spr.service.MessageService;
 import org.spr.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +58,7 @@ public class MessageDBController {
      * @return Message protobuf with the requested id
      */
     @MessageMapping("get-proto/{id}")
-    public Mono<SimpleMessage> getProtoById(@PathVariable String id) {
+    public Mono<ProtoMessage> getProtoById(@PathVariable String id) {
         return messageService
                 .getById(id)
                 .map(MessageUtils::messageToProto);
@@ -70,7 +70,7 @@ public class MessageDBController {
      * @return Reactive stream of messages as protobuf
      */
     @MessageMapping("get-all-proto")
-    public Flux<SimpleMessage> getAllProto() {
+    public Flux<ProtoMessage> getAllProto() {
         return messageService
                 .getAll()
                 .map(MessageUtils::messageToProto);

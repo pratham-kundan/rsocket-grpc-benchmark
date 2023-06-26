@@ -17,25 +17,25 @@ public class TestClient {
 
         MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
 
-        SimpleMessage message = SimpleMessage.newBuilder().setBody("Hello everyone").build();
+        ProtoMessage message = ProtoMessage.newBuilder().setBody("Hello everyone").build();
 
-        SimpleMessage response = stub.ping(message);
+        ProtoMessage response = stub.ping(message);
 
         MessageDbServiceGrpc.MessageDbServiceBlockingStub dbBStub = MessageDbServiceGrpc.newBlockingStub(channel);
-        List<SimpleMessage> simpleMessageList = new ArrayList<>();
-        dbBStub.getAll(SimpleMessage.newBuilder().build()).forEachRemaining(simpleMessageList::add);
+        List<ProtoMessage> protoMessageList = new ArrayList<>();
+        dbBStub.getAll(ProtoMessage.newBuilder().build()).forEachRemaining(protoMessageList::add);
 
-        System.out.println("Response from server: " + simpleMessageList);
+        System.out.println("Response from server: " + protoMessageList);
 
         SizedMessageServiceGrpc.SizedMessageServiceBlockingStub smsBStub = SizedMessageServiceGrpc.newBlockingStub(channel);
 
-        SimpleSizedMessage smResponse = smsBStub.ping(SizedMessageRequest.newBuilder().setSizeMb(3).build());
+        ProtoSizedMessage smResponse = smsBStub.ping(SizedMessageRequest.newBuilder().setSizeMb(3).build());
 
         var data = smResponse.getDataList();
         System.out.println(data.size());
         System.out.println(smResponse.getSerializedSize());
 
-        List<SimpleSizedMessage> smStreamResponse = new ArrayList<>();
+        List<ProtoSizedMessage> smStreamResponse = new ArrayList<>();
         smsBStub.echoStream(SizedMessageRequest.newBuilder().setSizeMb(10).build()).forEachRemaining(smStreamResponse::add);
 
         System.out.println(smStreamResponse.size());

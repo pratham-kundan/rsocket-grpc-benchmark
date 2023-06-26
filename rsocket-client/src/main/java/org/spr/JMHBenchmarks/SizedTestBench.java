@@ -1,6 +1,7 @@
 package org.spr.JMHBenchmarks;
 
 import org.openjdk.jmh.annotations.*;
+import org.spr.CustomBenchmarks.RequesterUtils;
 import org.spr.data.SizedMessage;
 import org.spr.requests.JsonRequests;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
@@ -26,7 +27,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkSizedRequestResponseT10(ExecutionPlan execPlan) {
-        SizedMessage response = JsonRequests.sizedRequestResponse(execPlan.rSocketRequester, 30);
+        SizedMessage response = JsonRequests.sizedRequestResponse(execPlan.rSocketRequester, 5);
     }
 
     @Benchmark
@@ -35,7 +36,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkSizedRequestResponseT20(ExecutionPlan execPlan) {
-        SizedMessage response = JsonRequests.sizedRequestResponse(execPlan.rSocketRequester, 30);
+        SizedMessage response = JsonRequests.sizedRequestResponse(execPlan.rSocketRequester, 5);
     }
 
     @Benchmark
@@ -44,7 +45,7 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkSizedRequestStreamT10(ExecutionPlan execPlan) {
-        List<SizedMessage> response = JsonRequests.sizedRequestStream(execPlan.rSocketRequester, 100);
+        List<SizedMessage> response = JsonRequests.sizedRequestStream(execPlan.rSocketRequester, 20);
     }
 
     @Benchmark
@@ -53,25 +54,22 @@ public class SizedTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkSizedRequestStreamT20(ExecutionPlan execPlan) {
-        List<SizedMessage> response = JsonRequests.sizedRequestStream(execPlan.rSocketRequester, 100);
+        List<SizedMessage> response = JsonRequests.sizedRequestStream(execPlan.rSocketRequester, 20);
     }
 
 
     @State(Scope.Thread)
     public static class ExecutionPlan {
-        public RSocketRequester rSocketRequester = RSocketRequester
-                .builder()
-                .rsocketStrategies(RSocketStrategies
-                        .builder()
-                        .encoder(new Jackson2JsonEncoder())
-                        .decoder(new Jackson2JsonDecoder())
-                        .build()
-                )
-                .dataMimeType(MimeTypeUtils.APPLICATION_JSON)
-                .tcp("localhost", 8989);
+        public RSocketRequester rSocketRequester;
 
-        @Setup(Level.Invocation)
+        @Setup(Level.Iteration)
         public void setUp() {
+            rSocketRequester = RequesterUtils.newJsonRequester("localhost", 8989);
+        }
+
+        @TearDown(Level.Iteration)
+        public void tearDown() {
+            rSocketRequester.dispose();
         }
     }
 
