@@ -1,5 +1,5 @@
 Benchmark,Mode,Cnt,Score,Error,Units
-SizedTestBench.benchmarkRequestResponseT10,thrpt,5,371.432,±,14.028,ops/s
-SizedTestBench.benchmarkRequestResponseT20,thrpt,5,426.024,±,24.473,ops/s
-SizedTestBench.benchmarkRequestStreamT10,thrpt,5,136.635,±,5.111,ops/s
-SizedTestBench.benchmarkRequestStreamT20,thrpt,5,138.799,±,4.450,ops/s
+JMHBenchmarks.SizedTestBench.benchmarkRequestResponseT10,thrpt,5,268.918,±,17.210,ops/s
+JMHBenchmarks.SizedTestBench.benchmarkRequestResponseT20,thrpt,5,264.788,±,22.533,ops/s
+JMHBenchmarks.SizedTestBench.benchmarkRequestStreamT10,thrpt,5,70.465,±,7.379,ops/s
+JMHBenchmarks.SizedTestBench.benchmarkRequestStreamT20,thrpt,5,69.251,±,2.786,ops/s
