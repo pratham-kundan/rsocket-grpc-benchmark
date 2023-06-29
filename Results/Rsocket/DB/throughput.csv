@@ -1,5 +1,5 @@
-Benchmark,Mode,Cnt,Score,Error,Units
-DBTestBench.benchmarkDbGetAllA,thrpt,5,525.891,±,104.933,ops/s
-DBTestBench.benchmarkDbGetAllB,thrpt,5,712.369,±,39.822,ops/s
-DBTestBench.benchmarkDbGetAllC,thrpt,5,897.985,±,145.035,ops/s
-DBTestBench.benchmarkDbGetAllD,thrpt,5,986.298,±,64.312,ops/s
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
+"org.spr.JMHBenchmarks.DBTestBench.benchmarkDbGetAllA","thrpt",10,3,538.045792,711.803003,"ops/s"
+"org.spr.JMHBenchmarks.DBTestBench.benchmarkDbGetAllB","thrpt",20,3,698.097868,187.679886,"ops/s"
+"org.spr.JMHBenchmarks.DBTestBench.benchmarkDbGetAllC","thrpt",50,3,876.751287,95.415188,"ops/s"
+"org.spr.JMHBenchmarks.DBTestBench.benchmarkDbGetAllD","thrpt",100,3,935.851625,156.836549,"ops/s"

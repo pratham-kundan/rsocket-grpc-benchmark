@@ -10,7 +10,7 @@ public class GrpcJmhRunner {
         Options options = new OptionsBuilder()
                 .include(SizedTestBench.class.getSimpleName())
                 .resultFormat(ResultFormatType.CSV)
-                .result("grpc-db-results.csv")
+                .result("grpc-results.csv")
                 .build();
 
         new Runner(options).run();

@@ -1,5 +1,5 @@
-Benchmark,Mode,Cnt,Score,Error,Units
-JMHBenchmarks.ProtoSizedTestBench.benchmarkSizedRequestResponseT10,thrpt,5,156.939,±,7.658,ops/s
-JMHBenchmarks.ProtoSizedTestBench.benchmarkSizedRequestResponseT20,thrpt,5,153.678,±,3.699,ops/s
-JMHBenchmarks.ProtoSizedTestBench.benchmarkSizedRequestStreamT10,thrpt,5,60.587,±,4.091,ops/s
-JMHBenchmarks.ProtoSizedTestBench.benchmarkSizedRequestStreamT20,thrpt,5,62.098,±,5.796,ops/s
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
+"org.spr.JMHBenchmarks.ProtoSizedTestBench.benchmarkSizedRequestResponseT10","thrpt",10,3,155.472341,60.212497,"ops/s"
+"org.spr.JMHBenchmarks.ProtoSizedTestBench.benchmarkSizedRequestResponseT20","thrpt",20,3,155.191206,6.457204,"ops/s"
+"org.spr.JMHBenchmarks.ProtoSizedTestBench.benchmarkSizedRequestStreamT10","thrpt",10,3,60.565938,20.313854,"ops/s"
+"org.spr.JMHBenchmarks.ProtoSizedTestBench.benchmarkSizedRequestStreamT20","thrpt",20,3,62.615217,25.599868,"ops/s"
