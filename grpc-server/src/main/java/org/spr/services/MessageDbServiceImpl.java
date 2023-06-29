@@ -6,6 +6,7 @@ import org.spr.data.Message;
 import org.spr.protos.MessageDbServiceGrpc;
 import org.spr.protos.ProtoMessage;
 import org.spr.repositories.MessageRepository;
+import org.spr.repositories.ReactiveMessageRepository;
 import org.spr.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @GrpcService
 public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceImplBase {
     @Autowired
-    private MessageRepository messageRepository;
+    private ReactiveMessageRepository messageRepository;
 
     /**
      * Creates a document in mongo db with supplied body-text
@@ -25,7 +26,7 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
      */
     @Override
     public void create(ProtoMessage request, StreamObserver<ProtoMessage> responseObserver) {
-        Message saved = messageRepository.save(MessageUtils.protoToMessage(request));
+        Message saved = messageRepository.save(MessageUtils.protoToMessage(request)).block();
         responseObserver.onNext(ProtoMessage
                 .newBuilder()
                 .setId(saved.getId())
@@ -43,9 +44,10 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
     public void getAll(ProtoMessage request, StreamObserver<ProtoMessage> responseObserver) {
         messageRepository
                 .findAll()
-                .stream()
                 .map(MessageUtils::messageToProto)
-                .forEach(responseObserver::onNext);
-        responseObserver.onCompleted();
+                .doOnNext(responseObserver::onNext)
+                .doOnComplete(responseObserver::onCompleted)
+                .subscribe();
+
     }
 }

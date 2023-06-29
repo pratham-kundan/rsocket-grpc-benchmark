@@ -48,7 +48,9 @@ public class MessageDBController {
      */
     @MessageMapping("get-all")
     public Flux<MessageDto> getAll() {
-        return messageService.getAll().map(MessageUtils::messageToDto);
+        return messageService
+                .getAll()
+                .map(MessageUtils::messageToDto);
     }
 
     /**

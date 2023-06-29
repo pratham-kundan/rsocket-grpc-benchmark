@@ -8,7 +8,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
-import java.util.stream.Stream;
 
 @Controller
 public class MessageController {
@@ -66,11 +65,11 @@ public class MessageController {
      */
     @MessageMapping("request-response-proto")
     public Mono<ProtoMessage> echo(ProtoMessage request) {
-        ProtoMessage response = ProtoMessage
+        return Mono.just(ProtoMessage
                 .newBuilder()
                 .setBody("Acknowledged: " + request.getBody() + " at:" + Instant.now())
-                .build();
-        return Mono.just(response);
+                .build()
+        );
     }
 
     /**

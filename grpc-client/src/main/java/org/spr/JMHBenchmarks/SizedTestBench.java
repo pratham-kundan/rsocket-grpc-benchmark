@@ -8,6 +8,7 @@ import org.spr.protos.ProtoSizedMessage;
 import org.spr.protos.SizedMessageServiceGrpc;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * for Protobuf
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 2)
-@Threads(100)
+@Measurement(iterations = 3, time = 5, timeUnit = TimeUnit.SECONDS)
 public class SizedTestBench {
 
     @Benchmark

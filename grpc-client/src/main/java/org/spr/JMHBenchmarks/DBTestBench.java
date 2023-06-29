@@ -8,6 +8,7 @@ import org.spr.protos.MessageDbServiceGrpc;
 import org.spr.protos.ProtoMessage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * for Protobuf
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 2)
+@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
 public class DBTestBench {
     @Benchmark
     @Fork(value = 1, warmups = 1)

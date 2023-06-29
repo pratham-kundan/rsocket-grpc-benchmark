@@ -11,6 +11,7 @@ import org.springframework.messaging.rsocket.RSocketStrategies;
 import org.springframework.util.MimeTypeUtils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * for JSON
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 2)
+@Measurement(iterations = 4, time = 5, timeUnit = TimeUnit.SECONDS)
 public class SizedTestBench {
 
     @Benchmark
