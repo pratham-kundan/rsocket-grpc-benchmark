@@ -34,8 +34,8 @@ def plot_through_put_line(
     ranges = list(zip(split[0:-1], split[1:]))
     x_pos_throughput = [range[0] + (range[1] - range[0]) / 2 for range in ranges]
 
-    rsocket_throughput_values = rsocket_throughput["Cnt"]
-    grpc_throughput_values = grpc_throughput["Cnt"]
+    rsocket_throughput_values = rsocket_throughput["Score"]
+    grpc_throughput_values = grpc_throughput["Score"]
 
     factor = 1
 
@@ -67,8 +67,8 @@ def plot_through_put_line(
 def draw_throughput_chart(
     rsocket_df: pd.DataFrame, grpc_df: pd.DataFrame, thread_stats
 ):
-    rsocket_throughput_values = rsocket_df["Cnt"]
-    grpc_throughput_values = grpc_df["Cnt"]
+    rsocket_throughput_values = rsocket_df["Score"]
+    grpc_throughput_values = grpc_df["Score"]
 
     width = 0.35
     plt.bar(
