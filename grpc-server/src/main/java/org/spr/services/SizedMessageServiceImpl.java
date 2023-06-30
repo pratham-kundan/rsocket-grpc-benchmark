@@ -20,7 +20,7 @@ public class SizedMessageServiceImpl extends SizedMessageServiceGrpc.SizedMessag
      * @param responseObserver responseObserver to publish data to
      */
     @Override
-    public void ping(SizedMessageRequest request, StreamObserver<ProtoSizedMessage> responseObserver) {
+    public void sizedRequestResponse(SizedMessageRequest request, StreamObserver<ProtoSizedMessage> responseObserver) {
         int mb_size = request.getSizeMb();
         ProtoSizedMessage.Builder message = ProtoSizedMessage.newBuilder();
         for (int i = 0; i < mb_size; i++) {
@@ -37,7 +37,7 @@ public class SizedMessageServiceImpl extends SizedMessageServiceGrpc.SizedMessag
      * @param responseObserver responseObserver to publish data to
      */
     @Override
-    public void echoStream(SizedMessageRequest request, StreamObserver<ProtoSizedMessage> responseObserver) {
+    public void sizedRequestStream(SizedMessageRequest request, StreamObserver<ProtoSizedMessage> responseObserver) {
         int mb_size = request.getSizeMb();
 
         for (int i = 0; i < mb_size; i++) {

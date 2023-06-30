@@ -20,6 +20,11 @@ public class Message {
         this.body = body;
     }
 
+    public Message(String id, String body) {
+        this.id = id;
+        this.body = body;
+    }
+
     public String getBody() {
         return body;
     }

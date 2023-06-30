@@ -5,7 +5,6 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import org.spr.data.Message;
 import org.spr.protos.MessageDbServiceGrpc;
 import org.spr.protos.ProtoMessage;
-import org.spr.repositories.MessageRepository;
 import org.spr.repositories.ReactiveMessageRepository;
 import org.spr.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +48,55 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
                 .doOnComplete(responseObserver::onCompleted)
                 .subscribe();
 
+    }
+
+    @Override
+    public StreamObserver<ProtoMessage> pushAll(StreamObserver<ProtoMessage> responseObserver) {
+        return new StreamObserver<>() {
+            @Override
+            public void onNext(ProtoMessage value) {
+                responseObserver.onNext(
+                        messageRepository
+                                .save(MessageUtils.protoToMessage(value))
+                                .map(MessageUtils::messageToProto)
+                                .block()
+                );
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
+    }
+
+    @Override
+    public StreamObserver<ProtoMessage> removeAll(StreamObserver<ProtoMessage> responseObserver) {
+        final int[] deleted = {0};
+        return new StreamObserver<>() {
+            @Override
+            public void onNext(ProtoMessage value) {
+                System.out.println(value.getBody());
+                messageRepository.deleteById(value.getBody()).subscribe();
+                deleted[0]++;
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                responseObserver.onError(t);
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onNext(ProtoMessage.newBuilder().setBody("Acknowledged: " + deleted[0] + " requests").build());
+                responseObserver.onCompleted();
+            }
+        };
     }
 }

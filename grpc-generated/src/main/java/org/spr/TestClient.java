@@ -19,7 +19,7 @@ public class TestClient {
 
         ProtoMessage message = ProtoMessage.newBuilder().setBody("Hello everyone").build();
 
-        ProtoMessage response = stub.ping(message);
+        ProtoMessage response = stub.requestResponse(message);
 
         MessageDbServiceGrpc.MessageDbServiceBlockingStub dbBStub = MessageDbServiceGrpc.newBlockingStub(channel);
         List<ProtoMessage> protoMessageList = new ArrayList<>();
@@ -29,14 +29,14 @@ public class TestClient {
 
         SizedMessageServiceGrpc.SizedMessageServiceBlockingStub smsBStub = SizedMessageServiceGrpc.newBlockingStub(channel);
 
-        ProtoSizedMessage smResponse = smsBStub.ping(SizedMessageRequest.newBuilder().setSizeMb(3).build());
+        ProtoSizedMessage smResponse = smsBStub.sizedRequestResponse(SizedMessageRequest.newBuilder().setSizeMb(3).build());
 
         var data = smResponse.getDataList();
         System.out.println(data.size());
         System.out.println(smResponse.getSerializedSize());
 
         List<ProtoSizedMessage> smStreamResponse = new ArrayList<>();
-        smsBStub.echoStream(SizedMessageRequest.newBuilder().setSizeMb(10).build()).forEachRemaining(smStreamResponse::add);
+        smsBStub.sizedRequestStream(SizedMessageRequest.newBuilder().setSizeMb(10).build()).forEachRemaining(smStreamResponse::add);
 
         System.out.println(smStreamResponse.size());
         System.out.println(smStreamResponse.get(0).getSerializedSize() / 1024);

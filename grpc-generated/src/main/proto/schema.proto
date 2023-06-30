@@ -18,20 +18,30 @@ message SizedMessageRequest {
 }
 
 service SizedMessageService {
-  rpc ping (SizedMessageRequest) returns (ProtoSizedMessage) {};
+  rpc sizedRequestResponse (SizedMessageRequest) returns (ProtoSizedMessage) {};
 
-  rpc echoStream(SizedMessageRequest) returns (stream ProtoSizedMessage) {};
+  rpc sizedRequestStream (SizedMessageRequest) returns (stream ProtoSizedMessage) {};
+
+  rpc sizedStreamResponse (stream ProtoSizedMessage) returns (ProtoMessage) {};
 }
 
 service MessageService {
-  rpc ping (ProtoMessage) returns (ProtoMessage) {};
+  rpc requestResponse (ProtoMessage) returns (ProtoMessage) {};
 
-  rpc echoStream (ProtoMessage) returns (stream ProtoMessage) {};
+  rpc requestStream (ProtoMessage) returns (stream ProtoMessage) {};
+
+  rpc streamResponse (stream ProtoMessage) returns (ProtoMessage) {};
+
+  rpc biStream (stream ProtoMessage) returns (stream ProtoMessage) {};
 }
 
 service MessageDbService {
   rpc create (ProtoMessage) returns (ProtoMessage) {};
 
   rpc getAll (ProtoMessage) returns (stream ProtoMessage) {};
+
+  rpc pushAll (stream ProtoMessage) returns (stream ProtoMessage) {};
+
+  rpc removeAll (stream ProtoMessage) returns (ProtoMessage) {};
 }
 
