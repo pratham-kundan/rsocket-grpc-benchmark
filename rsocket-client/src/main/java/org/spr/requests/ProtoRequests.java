@@ -27,29 +27,6 @@ public class ProtoRequests {
                 .block();
     }
 
-    public static List<ProtoMessage> getAllMessages(RSocketRequester rSocketRequester) {
-        return rSocketRequester
-                .route("get-all-proto")
-                .retrieveFlux(ProtoMessage.class)
-                .collectList()
-                .block();
-    }
-
-    public static ProtoSizedMessage sizedRequestResponse(RSocketRequester rSocketRequester, int sizeMb) {
-        return rSocketRequester.route("sized-request-response-proto")
-                .data(SizedMessageRequest.newBuilder().setSizeMb(sizeMb).build())
-                .retrieveMono(ProtoSizedMessage.class)
-                .block();
-    }
-
-    public static List<ProtoSizedMessage> sizedRequestStream(RSocketRequester rSocketRequester, int sizeMb) {
-        return rSocketRequester.route("sized-request-stream-proto")
-                .data(SizedMessageRequest.newBuilder().setSizeMb(sizeMb).build())
-                .retrieveFlux(ProtoSizedMessage.class)
-                .collectList()
-                .block();
-    }
-
     public static ProtoMessage streamResponse(RSocketRequester rSocketRequester, String requestText) {
         Flux<ProtoMessage> request = Flux.range(1, 200)
                 .map((__) -> ProtoMessage.newBuilder()
@@ -76,6 +53,14 @@ public class ProtoRequests {
                 .block();
     }
 
+    public static List<ProtoMessage> getAllMessages(RSocketRequester rSocketRequester) {
+        return rSocketRequester
+                .route("get-all-proto")
+                .retrieveFlux(ProtoMessage.class)
+                .collectList()
+                .block();
+    }
+
     public static List<ProtoMessage> pushAll(RSocketRequester rSocketRequester, List<String> messages) {
         return rSocketRequester
                 .route("push-all-proto")
@@ -93,5 +78,20 @@ public class ProtoRequests {
                         .map(message -> ProtoMessage.newBuilder().setBody(message).build()))
                 .retrieveFlux(ProtoMessage.class)
                 .blockLast();
+    }
+
+    public static ProtoSizedMessage sizedRequestResponse(RSocketRequester rSocketRequester, int sizeMb) {
+        return rSocketRequester.route("sized-request-response-proto")
+                .data(SizedMessageRequest.newBuilder().setSizeMb(sizeMb).build())
+                .retrieveMono(ProtoSizedMessage.class)
+                .block();
+    }
+
+    public static List<ProtoSizedMessage> sizedRequestStream(RSocketRequester rSocketRequester, int sizeMb) {
+        return rSocketRequester.route("sized-request-stream-proto")
+                .data(SizedMessageRequest.newBuilder().setSizeMb(sizeMb).build())
+                .retrieveFlux(ProtoSizedMessage.class)
+                .collectList()
+                .block();
     }
 }

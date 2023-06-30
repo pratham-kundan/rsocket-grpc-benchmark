@@ -80,6 +80,13 @@ public class MessageDBController {
                 .map(MessageUtils::messageToProto);
     }
 
+    /**
+     * Bidirectional streaming channel
+     * Stores messages from a reactive stream to a database
+     *
+     * @param request A reactive stream containing messages to add to the DB
+     * @return A reactive stream containing an acknowledgement for each received message
+     */
     @MessageMapping("push-all-proto")
     public Flux<ProtoMessage> pushAllProto(Flux<ProtoMessage> request) {
         return request
@@ -87,6 +94,13 @@ public class MessageDBController {
                 .map(message -> ProtoMessage.newBuilder().setId(message.getId()).build());
     }
 
+    /**
+     * Client streaming to server
+     * Removes the messages from a stream from the database.
+     *
+     * @param request A reactive stream containing messages ids to remove from the DB
+     * @return A mono  acknowledging for the number of received requests
+     */
     @MessageMapping("remove-all-proto")
     public Mono<ProtoMessage> removeAllProto(Flux<ProtoMessage> request) {
         return request

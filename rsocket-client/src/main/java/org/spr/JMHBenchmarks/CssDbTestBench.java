@@ -2,15 +2,9 @@ package org.spr.JMHBenchmarks;
 
 import org.openjdk.jmh.annotations.*;
 import org.spr.CustomBenchmarks.RequesterUtils;
-import org.spr.data.MessageDto;
 import org.spr.protos.ProtoMessage;
-import org.spr.requests.JsonRequests;
 import org.spr.requests.ProtoRequests;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
-import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.messaging.rsocket.RSocketRequester;
-import org.springframework.messaging.rsocket.RSocketStrategies;
-import org.springframework.util.MimeTypeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +24,7 @@ public class CssDbTestBench {
     public static List<String> generateRandomString(int length, int listLength) {
         List<String> messages = new ArrayList<>();
 
-        for (int j = 0; j<listLength; j++) {
+        for (int j = 0; j < listLength; j++) {
             Random random = new Random();
             StringBuilder sb = new StringBuilder(length);
 
@@ -52,7 +46,7 @@ public class CssDbTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkDbPushRemoveA(ExecutionPlan execPlan) {
-        List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 20));
+        List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 100));
         List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
         ProtoMessage response = ProtoRequests.removeAll(execPlan.rSocketRequester, toBeDeleted);
     }
@@ -63,7 +57,7 @@ public class CssDbTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkDbPushRemoveB(ExecutionPlan execPlan) {
-        List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 20));
+        List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 100));
         List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
         ProtoMessage response = ProtoRequests.removeAll(execPlan.rSocketRequester, toBeDeleted);
     }
@@ -74,7 +68,7 @@ public class CssDbTestBench {
     @Warmup(iterations = 1)
     @Threads(50)
     public void benchmarkDbPushRemoveC(ExecutionPlan execPlan) {
-        List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 20));
+        List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 100));
         List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
         ProtoMessage response = ProtoRequests.removeAll(execPlan.rSocketRequester, toBeDeleted);
     }
@@ -85,7 +79,7 @@ public class CssDbTestBench {
     @Warmup(iterations = 1)
     @Threads(100)
     public void benchmarkDbPushRemoveD(ExecutionPlan execPlan) {
-        List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 20));
+        List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 100));
         List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
         ProtoMessage response = ProtoRequests.removeAll(execPlan.rSocketRequester, toBeDeleted);
     }

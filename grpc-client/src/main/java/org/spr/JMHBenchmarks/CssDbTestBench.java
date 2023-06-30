@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * for Protobuf
@@ -20,14 +19,14 @@ import java.util.stream.Collectors;
  */
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 2)
-@Measurement(iterations = 2, time = 5, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
 public class CssDbTestBench {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static List<String> generateRandomString(int length, int listLength) {
         List<String> messages = new ArrayList<>();
 
-        for (int j = 0; j<listLength; j++) {
+        for (int j = 0; j < listLength; j++) {
             Random random = new Random();
             StringBuilder sb = new StringBuilder(length);
 
@@ -49,7 +48,7 @@ public class CssDbTestBench {
     @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkDbPushRemoveA(ExecutionPlan execPlan) throws InterruptedException {
-        List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbBStub, generateRandomString(100, 20));
+        List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbBStub, generateRandomString(100, 100));
         List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
         ProtoMessage response = Requests.removeAll(execPlan.dbBStub, toBeDeleted);
     }
@@ -60,7 +59,7 @@ public class CssDbTestBench {
     @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkDbPushRemoveB(ExecutionPlan execPlan) throws InterruptedException {
-        List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbBStub, generateRandomString(100, 20));
+        List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbBStub, generateRandomString(100, 100));
         List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
         ProtoMessage response = Requests.removeAll(execPlan.dbBStub, toBeDeleted);
     }
@@ -71,7 +70,7 @@ public class CssDbTestBench {
     @Warmup(iterations = 1)
     @Threads(50)
     public void benchmarkPushRemoveC(ExecutionPlan execPlan) throws InterruptedException {
-        List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbBStub, generateRandomString(100, 20));
+        List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbBStub, generateRandomString(100, 100));
         List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
         ProtoMessage response = Requests.removeAll(execPlan.dbBStub, toBeDeleted);
     }
@@ -82,7 +81,7 @@ public class CssDbTestBench {
     @Warmup(iterations = 1)
     @Threads(100)
     public void benchmarkPushRemoveD(ExecutionPlan execPlan) throws InterruptedException {
-        List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbBStub, generateRandomString(100, 20));
+        List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbBStub, generateRandomString(100, 100));
         List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
         ProtoMessage response = Requests.removeAll(execPlan.dbBStub, toBeDeleted);
     }

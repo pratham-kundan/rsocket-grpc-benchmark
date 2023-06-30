@@ -34,6 +34,7 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
     }
 
     /**
+     * Server streaming to client
      * Returns all messages in the mongo database
      *
      * @param request          empty request
@@ -50,6 +51,13 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
 
     }
 
+    /**
+     * Bidirectional streaming (Channel)
+     * Accepts a stream of protoMessages from the response observer and adds them to the database
+     *
+     * @param responseObserver responseObserver to publish data to
+     * @return A stream of message ids of the pushed documents
+     */
     @Override
     public StreamObserver<ProtoMessage> pushAll(StreamObserver<ProtoMessage> responseObserver) {
         return new StreamObserver<>() {
@@ -65,6 +73,7 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
 
             @Override
             public void onError(Throwable t) {
+                responseObserver.onError(t);
                 responseObserver.onCompleted();
             }
 
@@ -75,6 +84,14 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
         };
     }
 
+    /**
+     * Client streaming to server
+     * Accepts a stream of protoMessages containing object ids from the response observer
+     * and removes them from the database
+     *
+     * @param responseObserver responseObserver to publish data to
+     * @return A message containing the number of the delete requests received
+     */
     @Override
     public StreamObserver<ProtoMessage> removeAll(StreamObserver<ProtoMessage> responseObserver) {
         final int[] deleted = {0};

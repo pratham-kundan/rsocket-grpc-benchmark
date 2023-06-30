@@ -13,6 +13,7 @@ import java.time.Instant;
 @GrpcService
 public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBase {
     /**
+     * Request response
      * Echos the request body with timestamp
      *
      * @param request          Protobuf message with some text
@@ -29,6 +30,7 @@ public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBas
     }
 
     /**
+     * Server streaming to client
      * Returns a stream of objects containing the request body with timestamp
      *
      * @param request          Protobuf message with some text
@@ -47,7 +49,14 @@ public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBas
         responseObserver.onCompleted();
     }
 
-
+    /**
+     * Client streaming to server
+     * Returns a single response from the server for a stream of elements
+     *
+     * @param responseObserver responseObserver to stream data to
+     * @return A stream that returns a message containing the number of requests received
+     * at the end of the stream
+     */
     @Override
     public StreamObserver<ProtoMessage> streamResponse(StreamObserver<ProtoMessage> responseObserver) {
         final int[] received = {0};
@@ -74,6 +83,13 @@ public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBas
         };
     }
 
+    /**
+     * A bidirectional stream channel
+     * Returns a single response from the server for a stream of elements
+     *
+     * @param responseObserver responseObserver to stream data to
+     * @return A stream that containing the acknowledgement of the requests received
+     */
     @Override
     public StreamObserver<ProtoMessage> biStream(StreamObserver<ProtoMessage> responseObserver) {
         return new StreamObserver<>() {

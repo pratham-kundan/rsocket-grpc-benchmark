@@ -47,7 +47,7 @@ public class MessageService {
     /**
      * Removes a message in a db
      *
-     * @param id Id of the message
+     * @param id id of the message to be removed
      */
     public Mono<Void> remove(String id) {
         return messageRepository

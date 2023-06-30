@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Controller
 public class MessageController {
     /**
+     * Simple client server request response
      * Returns a Message Data Object of strings from the request
      *
      * @param request request object text to be echoed back
@@ -24,6 +25,7 @@ public class MessageController {
     }
 
     /**
+     * Server streaming to client
      * Returns a reactive stream of Message data object
      *
      * @param request request object with text to be echoed back
@@ -36,6 +38,7 @@ public class MessageController {
     }
 
     /**
+     * Simple Request Response
      * Returns a Message Protobuf with string from the request
      *
      * @param request request protobuf with text to be echoed back
@@ -52,6 +55,7 @@ public class MessageController {
     }
 
     /**
+     * Server streaming to client
      * Returns a reactive stream of Message data object
      *
      * @param request request protobuf with text to be echoed back
@@ -68,6 +72,13 @@ public class MessageController {
                 );
     }
 
+    /**
+     * Client streaming to server
+     * Returns a Mono containing the number of messages received at the end of the stream
+     *
+     * @param request A Reactive stream containing a message
+     * @return Mono containing the number of messages received at the end of the stream
+     */
     @MessageMapping("stream-response-proto")
     public Mono<ProtoMessage> streamResponseProto(final Flux<ProtoMessage> request) {
         return request
@@ -79,6 +90,13 @@ public class MessageController {
                 );
     }
 
+    /**
+     * Bidirectional streaming (Channel)
+     * Returns a Reactive stream containing an acknowledgement for each message received
+     *
+     * @param request A Reactive stream containing a message
+     * @return Mono containing the number of messages received at the end of the stream
+     */
     @MessageMapping("bi-stream-proto")
     public Flux<ProtoMessage> biStreamProto(final Flux<ProtoMessage> request) {
         return request
