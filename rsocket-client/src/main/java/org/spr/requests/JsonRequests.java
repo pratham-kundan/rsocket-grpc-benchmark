@@ -10,30 +10,15 @@ import java.util.List;
  * Class to make requests to server and return objects
  */
 public class JsonRequests {
-    public static String requestResponseString(RSocketRequester rSocketRequester, String requestText) {
-        return rSocketRequester.route("request-response")
-                .data(requestText)
-                .retrieveMono(String.class)
-                .block();
-    }
-
-    public static List<String> requestStreamString(RSocketRequester rSocketRequester, String requestText) {
-        return rSocketRequester.route("request-stream")
-                .data(requestText)
-                .retrieveFlux(String.class)
-                .collectList()
-                .block();
-    }
-
     public static MessageDto requestResponse(RSocketRequester rSocketRequester, String requestText) {
-        return rSocketRequester.route("request-response-dto")
+        return rSocketRequester.route("request-response-json")
                 .data(new MessageDto("", requestText))
                 .retrieveMono(MessageDto.class)
                 .block();
     }
 
     public static List<MessageDto> requestStream(RSocketRequester rSocketRequester, String requestText) {
-        return rSocketRequester.route("request-stream-dto")
+        return rSocketRequester.route("request-stream-json")
                 .data(new MessageDto("", requestText))
                 .retrieveFlux(MessageDto.class)
                 .collectList()

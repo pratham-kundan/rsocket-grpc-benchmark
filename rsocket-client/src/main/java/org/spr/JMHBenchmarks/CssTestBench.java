@@ -2,17 +2,12 @@ package org.spr.JMHBenchmarks;
 
 import org.openjdk.jmh.annotations.*;
 import org.spr.CustomBenchmarks.RequesterUtils;
-import org.spr.data.MessageDto;
 import org.spr.protos.ProtoMessage;
-import org.spr.requests.JsonRequests;
 import org.spr.requests.ProtoRequests;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
-import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.messaging.rsocket.RSocketRequester;
-import org.springframework.messaging.rsocket.RSocketStrategies;
-import org.springframework.util.MimeTypeUtils;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,15 +18,15 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 2)
 @Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class DtoTestBench {
+public class CssTestBench {
 
     @Benchmark
     @Fork(value = 1, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkRequestResponseDtoT10(ExecutionPlan execPlan) {
-        ProtoMessage response = ProtoRequests.requestResponse(execPlan.rSocketRequester,  "Hello from client");
+    public void benchmarkStreamResponseDtoT10(ExecutionPlan execPlan) {
+        ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester,  "Hello from client");
     }
 
     @Benchmark
@@ -39,8 +34,8 @@ public class DtoTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkRequestResponseDtoT20(ExecutionPlan execPlan) {
-        ProtoMessage response = ProtoRequests.requestResponse(execPlan.rSocketRequester, "Hello from client");
+    public void benchmarkStreamResponseDtoT20(ExecutionPlan execPlan) {
+        ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
@@ -48,8 +43,8 @@ public class DtoTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkRequestStreamDtoT10(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester, "Hello from client");
+    public void benchmarkBiStreamDtoT10(ExecutionPlan execPlan) {
+        List<ProtoMessage> response = ProtoRequests.biStream(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
@@ -57,8 +52,8 @@ public class DtoTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkRequestStreamDtoT20(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester,"Hello from client");
+    public void benchmarkBiStreamDtoT20(ExecutionPlan execPlan) {
+        List<ProtoMessage> response = ProtoRequests.biStream(execPlan.rSocketRequester,"Hello from client");
     }
 
     @State(Scope.Thread)

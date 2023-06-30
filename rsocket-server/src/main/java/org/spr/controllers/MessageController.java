@@ -8,40 +8,18 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 public class MessageController {
-    /**
-     * Returns the string that it got in the request
-     *
-     * @param request request text to be echoed back
-     * @return Mono containing String with request-text with timestamp
-     */
-    @MessageMapping("request-response")
-    public Mono<String> echo(String request) {
-        return Mono.just("Acknowledged: " + request);
-    }
-
-    /**
-     * Returns a reactive stream of strings from the request
-     *
-     * @param request request text to be echoed back
-     * @return Flux flux containing request-text with timestamp
-     */
-    @MessageMapping("request-stream")
-    public Flux<String> echoStream(String request) {
-        return Flux.range(0, 200)
-                .map(i -> "Responding to: " + request + " at:" + Instant.now());
-    }
-
     /**
      * Returns a Message Data Object of strings from the request
      *
      * @param request request object text to be echoed back
      * @return Mono containing object with request-text with timestamp
      */
-    @MessageMapping("request-response-dto")
-    public Mono<MessageDto> echo(MessageDto request) {
+    @MessageMapping("request-response-json")
+    public Mono<MessageDto> requestResponseJson(MessageDto request) {
         return Mono.just(new MessageDto("", "Acknowledged: " + request.getBody()));
     }
 
@@ -51,7 +29,7 @@ public class MessageController {
      * @param request request object with text to be echoed back
      * @return Flux containing object with request-text with timestamp
      */
-    @MessageMapping("request-stream-dto")
+    @MessageMapping("request-stream-json")
     public Flux<MessageDto> echoStream(MessageDto request) {
         return Flux.range(0, 200)
                 .map(i -> new MessageDto("", "Responding to: " + request + " at:" + Instant.now()));
@@ -64,7 +42,8 @@ public class MessageController {
      * @return Mono containing object with request-text with timestamp
      */
     @MessageMapping("request-response-proto")
-    public Mono<ProtoMessage> echo(ProtoMessage request) {
+    public Mono<ProtoMessage> requestResponseProto(ProtoMessage request) {
+        System.out.println("Hello");
         return Mono.just(ProtoMessage
                 .newBuilder()
                 .setBody("Acknowledged: " + request.getBody() + " at:" + Instant.now())
@@ -79,12 +58,33 @@ public class MessageController {
      * @return Flux containing protobuf with request-text with timestamp
      */
     @MessageMapping("request-stream-proto")
-    public Flux<ProtoMessage> echoStream(ProtoMessage request) {
+    public Flux<ProtoMessage> requestStreamProto(ProtoMessage request) {
         return Flux.
                 range(0, 200)
                 .map(i -> ProtoMessage
                         .newBuilder()
                         .setBody("Responding to: " + request.getBody() + " at:" + Instant.now())
+                        .build()
+                );
+    }
+
+    @MessageMapping("stream-response-proto")
+    public Mono<ProtoMessage> streamResponseProto(final Flux<ProtoMessage> request) {
+        return request
+                .count()
+                .map(l -> ProtoMessage
+                        .newBuilder()
+                        .setBody("Received: " + l + " requests")
+                        .build()
+                );
+    }
+
+    @MessageMapping("bi-stream-proto")
+    public Flux<ProtoMessage> biStreamProto(final Flux<ProtoMessage> request) {
+        return request
+                .map(message -> message
+                        .toBuilder()
+                        .setBody("Responding to: " + message.getBody() + " at:" + Instant.now())
                         .build()
                 );
     }

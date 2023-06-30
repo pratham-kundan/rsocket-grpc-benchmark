@@ -2,27 +2,30 @@ package org.spr.JMHBenchmarks;
 
 import org.openjdk.jmh.annotations.*;
 import org.spr.CustomBenchmarks.RequesterUtils;
-import org.spr.requests.JsonRequests;
+import org.spr.protos.ProtoMessage;
+import org.spr.requests.ProtoRequests;
 import org.springframework.messaging.rsocket.RSocketRequester;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
- * for Strings
+ * for JSON
  * This class contains functions to benchmark the throughput of
  * server functions returning echos.
  */
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 2)
-public class TestBench {
+@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
+public class ProtoTestBench {
 
     @Benchmark
     @Fork(value = 1, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkRequestResponseT10(ExecutionPlan execPlan) {
-        String response = JsonRequests.requestResponseString(execPlan.rSocketRequester, "Hello from client");
+    public void benchmarkRequestResponseDtoT10(ExecutionPlan execPlan) {
+        ProtoMessage response = ProtoRequests.requestResponse(execPlan.rSocketRequester,  "Hello from client");
     }
 
     @Benchmark
@@ -30,8 +33,8 @@ public class TestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkRequestResponseT20(ExecutionPlan execPlan) {
-        String response = JsonRequests.requestResponseString(execPlan.rSocketRequester, "Hello from client");
+    public void benchmarkRequestResponseDtoT20(ExecutionPlan execPlan) {
+        ProtoMessage response = ProtoRequests.requestResponse(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
@@ -39,8 +42,8 @@ public class TestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
-        List<String> response = JsonRequests.requestStreamString(execPlan.rSocketRequester, "Hello from client");
+    public void benchmarkRequestStreamDtoT10(ExecutionPlan execPlan) {
+        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
@@ -48,10 +51,9 @@ public class TestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
-        List<String> response = JsonRequests.requestStreamString(execPlan.rSocketRequester, "Hello from client");
+    public void benchmarkRequestStreamDtoT20(ExecutionPlan execPlan) {
+        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester,"Hello from client");
     }
-
 
     @State(Scope.Thread)
     public static class ExecutionPlan {
@@ -59,7 +61,7 @@ public class TestBench {
 
         @Setup(Level.Iteration)
         public void setUp() {
-            rSocketRequester = RequesterUtils.newJsonRequester("localhost", 8989);
+            rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
         }
 
         @TearDown(Level.Iteration)

@@ -4,6 +4,7 @@ import org.spr.protos.ProtoMessage;
 import org.spr.protos.ProtoSizedMessage;
 import org.spr.protos.SizedMessageRequest;
 import org.springframework.messaging.rsocket.RSocketRequester;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -47,5 +48,50 @@ public class ProtoRequests {
                 .retrieveFlux(ProtoSizedMessage.class)
                 .collectList()
                 .block();
+    }
+
+    public static ProtoMessage streamResponse(RSocketRequester rSocketRequester, String requestText) {
+        Flux<ProtoMessage> request = Flux.range(1, 200)
+                .map((__) -> ProtoMessage.newBuilder()
+                        .setBody(requestText)
+                        .build());
+        return rSocketRequester
+                .route("stream-response-proto")
+                .data(request)
+                .retrieveFlux(ProtoMessage.class)
+                .blockLast();
+
+    }
+
+    public static List<ProtoMessage> biStream(RSocketRequester rSocketRequester, String requestText) {
+        Flux<ProtoMessage> request = Flux.range(1, 200)
+                .map((__) -> ProtoMessage.newBuilder()
+                        .setBody(requestText)
+                        .build());
+        return rSocketRequester
+                .route("bi-stream-proto")
+                .data(request)
+                .retrieveFlux(ProtoMessage.class)
+                .collectList()
+                .block();
+    }
+
+    public static List<ProtoMessage> pushAll(RSocketRequester rSocketRequester, List<String> messages) {
+        return rSocketRequester
+                .route("push-all-proto")
+                .data(Flux.fromIterable(messages).map(message -> ProtoMessage.newBuilder().setBody(message).build()))
+                .retrieveFlux(ProtoMessage.class)
+                .collectList()
+                .block();
+    }
+
+    public static ProtoMessage removeAll(RSocketRequester rSocketRequester, List<String> messageIds) {
+        return rSocketRequester
+                .route("remove-all-proto")
+                .data(Flux
+                        .fromIterable(messageIds)
+                        .map(message -> ProtoMessage.newBuilder().setBody(message).build()))
+                .retrieveFlux(ProtoMessage.class)
+                .blockLast();
     }
 }

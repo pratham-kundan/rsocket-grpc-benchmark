@@ -25,7 +25,9 @@ public class MessageDBController {
      */
     @MessageMapping("create")
     public Mono<String> create(String body) {
-        return messageService.create(body);
+        return messageService
+                .create(body)
+                .map(Object::toString);
     }
 
     /**
@@ -76,5 +78,24 @@ public class MessageDBController {
         return messageService
                 .getAll()
                 .map(MessageUtils::messageToProto);
+    }
+
+    @MessageMapping("push-all-proto")
+    public Flux<ProtoMessage> pushAllProto(Flux<ProtoMessage> request) {
+        return request
+                .flatMap(message -> messageService.create(message.getBody()))
+                .map(message -> ProtoMessage.newBuilder().setId(message.getId()).build());
+    }
+
+    @MessageMapping("remove-all-proto")
+    public Mono<ProtoMessage> removeAllProto(Flux<ProtoMessage> request) {
+        return request
+                .doOnNext(item -> messageService.remove(item.getBody()).subscribe())
+                .count()
+                .map(deleted -> ProtoMessage
+                        .newBuilder()
+                        .setBody("Acknowledged: " + deleted + " requests")
+                        .build()
+                );
     }
 }

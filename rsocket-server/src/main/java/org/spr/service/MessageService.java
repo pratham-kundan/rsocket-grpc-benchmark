@@ -40,8 +40,17 @@ public class MessageService {
      * @param body body of the message
      * @return Mono containing the object id of the message created
      */
-    public Mono<String> create(String body) {
-        Mono<Message> added = messageRepository.save(new Message(body));
-        return added.map(Message::getId);
+    public Mono<Message> create(String body) {
+        return messageRepository.save(new Message(body));
+    }
+
+    /**
+     * Removes a message in a db
+     *
+     * @param id Id of the message
+     */
+    public Mono<Void> remove(String id) {
+        return messageRepository
+                .deleteById(id);
     }
 }
