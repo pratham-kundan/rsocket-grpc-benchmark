@@ -1,0 +1,5 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
+"org.spr.JMHBenchmarks.CssTestBench.benchmarkBiStreamDtoT10","thrpt",10,3,4199.097308,1820.445716,"ops/s"
+"org.spr.JMHBenchmarks.CssTestBench.benchmarkBiStreamDtoT20","thrpt",20,3,4227.013275,1103.731377,"ops/s"
+"org.spr.JMHBenchmarks.CssTestBench.benchmarkStreamResponseDtoT10","thrpt",10,3,7631.847811,997.751636,"ops/s"
+"org.spr.JMHBenchmarks.CssTestBench.benchmarkStreamResponseDtoT20","thrpt",20,3,8155.125902,7689.451294,"ops/s"
