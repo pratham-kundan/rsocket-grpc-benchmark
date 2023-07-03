@@ -1,6 +1,6 @@
 package org.spr.CustomBenchmarks;
 
-import org.spr.Requests;
+import org.spr.requests.Requests;
 
 public class ReqResBenchmark extends BaseGrpcBenchMark {
     @Override

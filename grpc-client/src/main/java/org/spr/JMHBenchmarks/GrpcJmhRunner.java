@@ -8,7 +8,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class GrpcJmhRunner {
     public static void main(String[] args) throws Exception {
         Options options = new OptionsBuilder()
-                .include(CssDbTestBench.class.getSimpleName())
+                .include(CssTestBench.class.getSimpleName())
                 .resultFormat(ResultFormatType.CSV)
                 .result("grpc-results.csv")
                 .build();

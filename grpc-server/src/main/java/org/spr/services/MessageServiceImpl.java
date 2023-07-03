@@ -59,11 +59,11 @@ public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBas
      */
     @Override
     public StreamObserver<ProtoMessage> streamResponse(StreamObserver<ProtoMessage> responseObserver) {
-        final int[] received = {0};
         return new StreamObserver<>() {
+            int received = 0;
             @Override
             public void onNext(ProtoMessage value) {
-                received[0]++;
+                received++;
             }
 
             @Override
@@ -76,7 +76,7 @@ public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBas
             public void onCompleted() {
                 responseObserver.onNext(ProtoMessage
                         .newBuilder()
-                        .setBody("Received: " + received[0] + " requests")
+                        .setBody("Received: " + received + " requests")
                         .build());
                 responseObserver.onCompleted();
             }

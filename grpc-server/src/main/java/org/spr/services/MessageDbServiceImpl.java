@@ -94,13 +94,14 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
      */
     @Override
     public StreamObserver<ProtoMessage> removeAll(StreamObserver<ProtoMessage> responseObserver) {
-        final int[] deleted = {0};
         return new StreamObserver<>() {
+            int deleted = 0;
+
             @Override
             public void onNext(ProtoMessage value) {
                 System.out.println(value.getBody());
                 messageRepository.deleteById(value.getBody()).subscribe();
-                deleted[0]++;
+                deleted++;
             }
 
             @Override
@@ -111,7 +112,7 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
 
             @Override
             public void onCompleted() {
-                responseObserver.onNext(ProtoMessage.newBuilder().setBody("Acknowledged: " + deleted[0] + " requests").build());
+                responseObserver.onNext(ProtoMessage.newBuilder().setBody("Acknowledged: " + deleted + " requests").build());
                 responseObserver.onCompleted();
             }
         };

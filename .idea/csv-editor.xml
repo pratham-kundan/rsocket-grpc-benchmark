@@ -3,6 +3,27 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="/Results/Rsocket/DbClientStreaming/throughput.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Results/Rsocket/Request/throughput.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Results/gRPC/DbClientStreaming/cpu.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/grpc-client/grpc-db-results.csv">
           <value>
             <Attribute>
@@ -10,7 +31,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/grpc-db-results.csv">
+        <entry key="/grpc-results.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

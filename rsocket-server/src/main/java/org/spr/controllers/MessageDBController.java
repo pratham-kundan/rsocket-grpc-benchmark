@@ -91,7 +91,7 @@ public class MessageDBController {
     public Flux<ProtoMessage> pushAllProto(Flux<ProtoMessage> request) {
         return request
                 .flatMap(message -> messageService.create(message.getBody()))
-                .map(message -> ProtoMessage.newBuilder().setId(message.getId()).build());
+                .map(MessageUtils::messageToProto);
     }
 
     /**

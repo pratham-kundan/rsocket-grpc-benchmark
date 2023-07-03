@@ -9,20 +9,20 @@ import java.time.Duration;
 public class RsBmRunner {
     public static void simpleBenchMark() throws Exception {
         BmCompoundRunner simpleRequestResponseRunner = new BmCompoundRunner.Builder()
-                .addBenchmark(ReqResBenchmark.class, Duration.ofMinutes(1), 10, 2)
-                .addBenchmark(ReqResBenchmark.class, Duration.ofMinutes(1), 20, 2)
-                .addBenchmark(ReqStreamBenchmark.class, Duration.ofMinutes(1), 10, 2)
-                .addBenchmark(ReqStreamBenchmark.class, Duration.ofMinutes(1), 20, 2)
+                .addBenchmark(ReqResBenchmark.class, Duration.ofSeconds(5), 10, 5)
+                .addBenchmark(ReqResBenchmark.class, Duration.ofSeconds(5), 20, 5)
+                .addBenchmark(ReqStreamBenchmark.class, Duration.ofSeconds(5), 10, 5)
+                .addBenchmark(ReqStreamBenchmark.class, Duration.ofSeconds(5), 20, 5)
                 .build();
         simpleRequestResponseRunner.runBenchMark();
     }
 
     public static void dbBenchMark() throws Exception {
         BmCompoundRunner dbQueryRunner = new BmCompoundRunner.Builder()
-                .addBenchmark(DbReqStreamBenchmark.class, Duration.ofMinutes(1), 10, 2)
-                .addBenchmark(DbReqStreamBenchmark.class, Duration.ofMinutes(1), 20, 2)
-                .addBenchmark(DbReqStreamBenchmark.class, Duration.ofMinutes(1), 50, 2)
-                .addBenchmark(DbReqStreamBenchmark.class, Duration.ofMinutes(1), 100, 2)
+                .addBenchmark(DbReqStreamBenchmark.class, Duration.ofSeconds(5), 10, 5)
+                .addBenchmark(DbReqStreamBenchmark.class, Duration.ofSeconds(5), 20, 5)
+                .addBenchmark(DbReqStreamBenchmark.class, Duration.ofSeconds(5), 50, 5)
+                .addBenchmark(DbReqStreamBenchmark.class, Duration.ofSeconds(5), 100, 5)
                 .build();
 
         dbQueryRunner.runBenchMark();
@@ -40,7 +40,7 @@ public class RsBmRunner {
     }
 
     public static void main(String[] args) throws Exception {
-        sizedBenchMark();
+        simpleBenchMark();
     }
 
     public static class ReqResBenchmark extends BaseProtoBenchmark {

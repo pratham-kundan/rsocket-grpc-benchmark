@@ -46,7 +46,6 @@ public class MessageController {
      */
     @MessageMapping("request-response-proto")
     public Mono<ProtoMessage> requestResponseProto(ProtoMessage request) {
-        System.out.println("Hello");
         return Mono.just(ProtoMessage
                 .newBuilder()
                 .setBody("Acknowledged: " + request.getBody() + " at:" + Instant.now())

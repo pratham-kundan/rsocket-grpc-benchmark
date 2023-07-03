@@ -3,7 +3,7 @@ package org.spr.JMHBenchmarks;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.openjdk.jmh.annotations.*;
-import org.spr.Requests;
+import org.spr.requests.Requests;
 import org.spr.protos.MessageDbServiceGrpc;
 import org.spr.protos.ProtoMessage;
 

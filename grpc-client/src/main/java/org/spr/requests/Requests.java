@@ -1,4 +1,4 @@
-package org.spr;
+package org.spr.requests;
 
 import io.grpc.stub.StreamObserver;
 import org.spr.protos.*;

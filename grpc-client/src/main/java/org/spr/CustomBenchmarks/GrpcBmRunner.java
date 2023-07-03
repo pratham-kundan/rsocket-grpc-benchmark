@@ -7,10 +7,10 @@ import java.time.Duration;
 public class GrpcBmRunner {
     public static void simpleBenchMark() throws Exception {
         BmCompoundRunner simpleRequestResponseRunner = new BmCompoundRunner.Builder()
-                .addBenchmark(ReqResBenchmark.class, Duration.ofMinutes(1), 10, 2)
-                .addBenchmark(ReqResBenchmark.class, Duration.ofMinutes(1), 20, 2)
-                .addBenchmark(ReqStreamBenchmark.class, Duration.ofMinutes(1), 10, 2)
-                .addBenchmark(ReqStreamBenchmark.class, Duration.ofMinutes(1), 20, 2)
+                .addBenchmark(ReqResBenchmark.class, Duration.ofSeconds(5), 10, 5)
+                .addBenchmark(ReqResBenchmark.class, Duration.ofSeconds(5), 20, 5)
+                .addBenchmark(ReqStreamBenchmark.class, Duration.ofSeconds(5), 10, 5)
+                .addBenchmark(ReqStreamBenchmark.class, Duration.ofSeconds(5), 20, 5)
                 .build();
         simpleRequestResponseRunner.runBenchMark();
     }
@@ -37,6 +37,6 @@ public class GrpcBmRunner {
     }
 
     public static void main(String[] args) throws Exception {
-        sizedBenchMark();
+        simpleBenchMark();
     }
 }
