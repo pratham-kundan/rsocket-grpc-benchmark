@@ -36,7 +36,7 @@ service MessageService {
 }
 
 service MessageDbService {
-  rpc create (ProtoMessage) returns (ProtoMessage) {};
+  rpc getById (ProtoMessage) returns (ProtoMessage) {};
 
   rpc getAll (ProtoMessage) returns (stream ProtoMessage) {};
 

@@ -58,13 +58,13 @@ public class MessageDBController {
     /**
      * gets message by id
      *
-     * @param id id of the message
+     * @param request  request containing the id of the requested object.
      * @return Message protobuf with the requested id
      */
-    @MessageMapping("get-proto/{id}")
-    public Mono<ProtoMessage> getProtoById(@PathVariable String id) {
+    @MessageMapping("get-proto")
+    public Mono<ProtoMessage> getProtoById(ProtoMessage request) {
         return messageService
-                .getById(id)
+                .getById(request.getBody())
                 .map(MessageUtils::messageToProto);
     }
 

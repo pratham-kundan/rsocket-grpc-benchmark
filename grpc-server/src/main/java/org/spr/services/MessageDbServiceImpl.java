@@ -18,18 +18,18 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
     private ReactiveMessageRepository messageRepository;
 
     /**
-     * Creates a document in mongo db with supplied body-text
+     * Fetches a document in mongo db with supplied message id
      *
      * @param request          Protobuf message containing id
      * @param responseObserver responseObserver to publish data to
      */
     @Override
-    public void create(ProtoMessage request, StreamObserver<ProtoMessage> responseObserver) {
-        Message saved = messageRepository.save(MessageUtils.protoToMessage(request)).block();
-        responseObserver.onNext(ProtoMessage
-                .newBuilder()
-                .setId(saved.getId())
-                .build());
+    public void getById(ProtoMessage request, StreamObserver<ProtoMessage> responseObserver) {
+        ProtoMessage message =  messageRepository
+                .findById(request.getBody())
+                .map(MessageUtils::messageToProto)
+                .block();
+        responseObserver.onNext(message);
         responseObserver.onCompleted();
     }
 
@@ -99,7 +99,6 @@ public class MessageDbServiceImpl extends MessageDbServiceGrpc.MessageDbServiceI
 
             @Override
             public void onNext(ProtoMessage value) {
-                System.out.println(value.getBody());
                 messageRepository.deleteById(value.getBody()).subscribe();
                 deleted++;
             }

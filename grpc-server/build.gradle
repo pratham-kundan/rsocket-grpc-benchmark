@@ -20,6 +20,9 @@ dependencies {
 
     implementation project(':grpc-generated')
 
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     implementation 'net.devh:grpc-spring-boot-starter:2.14.0.RELEASE'

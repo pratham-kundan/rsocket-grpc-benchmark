@@ -3,6 +3,10 @@ package org.spr.utils;
 import org.spr.data.Message;
 import org.spr.protos.ProtoMessage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Util class to convert mongo document to protobuf
  */
@@ -21,6 +25,7 @@ public class MessageUtils {
                 .setId(message.getId())
                 .build();
     }
+
 
     public static Message protoToMessage(ProtoMessage proto) {
         return new Message(proto.getBody());

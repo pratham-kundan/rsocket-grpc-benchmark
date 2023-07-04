@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
-
 /**
  * Mongo document representing a simple message
  */
@@ -17,11 +16,6 @@ public class Message {
 
     public Message(String body) {
         this.id = UUID.randomUUID().toString();
-        this.body = body;
-    }
-
-    public Message(String id, String body) {
-        this.id = id;
         this.body = body;
     }
 
