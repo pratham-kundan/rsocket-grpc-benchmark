@@ -6,6 +6,7 @@ import org.spr.protos.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -84,6 +85,10 @@ public class Requests {
         return response;
     }
 
+    public static ProtoMessage getById(MessageDbServiceGrpc.MessageDbServiceBlockingStub stub, String messageId) {
+        return stub.getById(ProtoMessage.newBuilder().setBody(messageId).build());
+    }
+
     public static List<ProtoMessage> getAllMessages(MessageDbServiceGrpc.MessageDbServiceBlockingStub stub) {
         List<ProtoMessage> protoMessageList = new ArrayList<>();
 
@@ -92,10 +97,6 @@ public class Requests {
                 .forEachRemaining(protoMessageList::add);
 
         return protoMessageList;
-    }
-
-    public static ProtoMessage createMessage(MessageDbServiceGrpc.MessageDbServiceBlockingStub stub, ProtoMessage request) {
-        return stub.create(request);
     }
 
     public static List<ProtoMessage> pushAll(MessageDbServiceGrpc.MessageDbServiceStub stub, List<String> messages) throws InterruptedException {

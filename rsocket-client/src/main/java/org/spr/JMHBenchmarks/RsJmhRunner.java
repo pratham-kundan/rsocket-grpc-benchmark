@@ -8,7 +8,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class RsJmhRunner {
     public static void main(String[] args) throws Exception {
         Options options = new OptionsBuilder()
-                .include(CssDbTestBench.class.getName())
+                .include(DbReqResTestBench.class.getName())
                 .resultFormat(ResultFormatType.CSV)
                 .result("rsocket-results.csv")
                 .build();

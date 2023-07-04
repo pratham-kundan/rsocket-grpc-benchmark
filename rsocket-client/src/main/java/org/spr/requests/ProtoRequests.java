@@ -53,6 +53,14 @@ public class ProtoRequests {
                 .block();
     }
 
+    public static ProtoMessage getById(RSocketRequester rSocketRequester, String messageId) {
+        return rSocketRequester
+                .route("get-proto")
+                .data(ProtoMessage.newBuilder().setBody(messageId).build())
+                .retrieveMono(ProtoMessage.class)
+                .block();
+    }
+
     public static List<ProtoMessage> getAllMessages(RSocketRequester rSocketRequester) {
         return rSocketRequester
                 .route("get-all-proto")
