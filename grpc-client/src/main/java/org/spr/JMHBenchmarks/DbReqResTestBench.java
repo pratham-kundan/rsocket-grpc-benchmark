@@ -17,14 +17,12 @@ import java.util.concurrent.TimeUnit;
  * database query endpoints
  */
 @BenchmarkMode(Mode.Throughput)
-@Fork(value = 2)
+@Fork(value = 1, warmups = 1)
+@Warmup(iterations = 1)
 @Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
 public class DbReqResTestBench {
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkDbGetOneA(ExecutionPlan execPlan) {
         String message = execPlan.presentMessages.get(execPlan.random.nextInt(0, execPlan.presentMessages.size()));
@@ -32,9 +30,6 @@ public class DbReqResTestBench {
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkDbGetOneB(ExecutionPlan execPlan) {
         String message = execPlan.presentMessages.get(execPlan.random.nextInt(0, execPlan.presentMessages.size()));
@@ -42,9 +37,6 @@ public class DbReqResTestBench {
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(50)
     public void benchmarkDbGetOneC(ExecutionPlan execPlan) {
         String message = execPlan.presentMessages.get(execPlan.random.nextInt(0, execPlan.presentMessages.size()));
@@ -52,9 +44,6 @@ public class DbReqResTestBench {
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(100)
     public void benchmarkDbGetOneD(ExecutionPlan execPlan) {
         String message = execPlan.presentMessages.get(execPlan.random.nextInt(0, execPlan.presentMessages.size()));

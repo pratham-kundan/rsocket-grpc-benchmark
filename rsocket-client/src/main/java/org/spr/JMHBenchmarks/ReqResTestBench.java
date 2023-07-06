@@ -14,46 +14,37 @@ import java.util.concurrent.TimeUnit;
  * This class contains functions to benchmark the throughput of
  * server functions returning echos.
  */
+
+@Fork(value = 1, warmups = 1)
 @BenchmarkMode(Mode.Throughput)
-@Fork(value = 2)
+@Warmup(iterations = 1)
 @Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class ProtoTestBench {
+public class ReqResTestBench {
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkRequestResponseDtoT10(ExecutionPlan execPlan) {
+    public void benchmarkRequestResponseA(ExecutionPlan execPlan) {
         ProtoMessage response = ProtoRequests.requestResponse(execPlan.rSocketRequester,  "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkRequestResponseDtoT20(ExecutionPlan execPlan) {
+    public void benchmarkRequestResponseB(ExecutionPlan execPlan) {
         ProtoMessage response = ProtoRequests.requestResponse(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
-    @Threads(10)
-    public void benchmarkRequestStreamDtoT10(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester, "Hello from client");
+    @Threads(50)
+    public void benchmarkRequestResponseC(ExecutionPlan execPlan) {
+        ProtoMessage response = ProtoRequests.requestResponse(execPlan.rSocketRequester,  "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
-    @Threads(20)
-    public void benchmarkRequestStreamDtoT20(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester,"Hello from client");
+    @Threads(100)
+    public void benchmarkRequestResponseD(ExecutionPlan execPlan) {
+        ProtoMessage response = ProtoRequests.requestResponse(execPlan.rSocketRequester, "Hello from client");
     }
+
 
     @State(Scope.Thread)
     public static class ExecutionPlan {

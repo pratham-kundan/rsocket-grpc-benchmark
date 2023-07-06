@@ -16,40 +16,30 @@ import java.util.concurrent.TimeUnit;
  * database query endpoints
  */
 @BenchmarkMode(Mode.Throughput)
-@Fork(value = 2)
+@Fork(value = 1, warmups = 1)
+@Warmup(iterations = 1)
 @Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
 public class DBTestBench {
+
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkDbGetAllA(ExecutionPlan execPlan) {
         List<ProtoMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkDbGetAllB(ExecutionPlan execPlan) {
         List<ProtoMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(50)
     public void benchmarkDbGetAllC(ExecutionPlan execPlan) {
         List<ProtoMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(100)
     public void benchmarkDbGetAllD(ExecutionPlan execPlan) {
         List<ProtoMessage> messageList = Requests.getAllMessages(execPlan.dbBStub);

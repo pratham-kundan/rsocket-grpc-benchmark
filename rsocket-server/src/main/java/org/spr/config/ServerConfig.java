@@ -25,7 +25,8 @@ public class ServerConfig {
     public RSocketServerCustomizer serverCustomizer() {
         return (server) -> server
                 .fragment(16777215)
-                .payloadDecoder(PayloadDecoder.ZERO_COPY);
+//                .payloadDecoder(PayloadDecoder.ZERO_COPY)
+                ;
     }
 
     /**

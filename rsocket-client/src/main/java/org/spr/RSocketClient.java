@@ -12,5 +12,6 @@ public class RSocketClient {
 
         RequestComponent requestFiringComponent = context.getBean(RequestComponent.class);
         requestFiringComponent.fireRequests();
+        System.in.read();
     }
 }

@@ -16,41 +16,30 @@ import java.util.concurrent.TimeUnit;
  * server functions returning large objects.
  */
 @BenchmarkMode(Mode.Throughput)
-@Fork(value = 2)
+@Fork(value = 1, warmups = 1)
+@Warmup(iterations = 1)
 @Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
 public class SizedTestBench {
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkRequestResponseT10(ExecutionPlan execPlan) {
         ProtoSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 30);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkRequestResponseT20(ExecutionPlan execPlan) {
         ProtoSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 30);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
         List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 100);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
         List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 100);

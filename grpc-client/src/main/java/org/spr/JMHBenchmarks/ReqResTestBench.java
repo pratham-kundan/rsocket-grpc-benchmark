@@ -15,45 +15,34 @@ import java.util.concurrent.TimeUnit;
  * This class contains functions to benchmark the throughput of
  * server functions returning echos.
  */
+@Fork(value = 1, warmups = 1)
 @BenchmarkMode(Mode.Throughput)
-@Fork(value = 2)
+@Warmup(iterations = 1)
 @Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class DtoTestBench {
+public class ReqResTestBench {
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkRequestResponseT10(ExecutionPlan execPlan) {
+    public void benchmarkRequestResponseA(ExecutionPlan execPlan) {
         ProtoMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkRequestResponseT20(ExecutionPlan execPlan) {
+    public void benchmarkRequestResponseB(ExecutionPlan execPlan) {
         ProtoMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
-    @Threads(10)
-    public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = Requests.requestStream(execPlan.bStub, "Hello from client");
+    @Threads(50)
+    public void benchmarkRequestResponseC(ExecutionPlan execPlan) {
+        ProtoMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
-    @Threads(20)
-    public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = Requests.requestStream(execPlan.bStub, "Hello from client");
+    @Threads(100)
+    public void benchmarkRequestResponseD(ExecutionPlan execPlan) {
+        ProtoMessage response = Requests.requestResponse(execPlan.bStub, "Hello from client");
     }
 
     @State(Scope.Thread)

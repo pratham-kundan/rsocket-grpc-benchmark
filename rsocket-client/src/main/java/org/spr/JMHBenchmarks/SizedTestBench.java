@@ -18,42 +18,32 @@ import java.util.concurrent.TimeUnit;
  * This class contains functions to benchmark the throughput of
  * server functions returning large objects.
  */
+
+@Fork(value = 1, warmups = 1)
 @BenchmarkMode(Mode.Throughput)
-@Fork(value = 2)
+@Warmup(iterations = 1)
 @Measurement(iterations = 4, time = 5, timeUnit = TimeUnit.SECONDS)
 public class SizedTestBench {
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkSizedRequestResponseT10(ExecutionPlan execPlan) {
         SizedMessage response = JsonRequests.sizedRequestResponse(execPlan.rSocketRequester, 5);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkSizedRequestResponseT20(ExecutionPlan execPlan) {
         SizedMessage response = JsonRequests.sizedRequestResponse(execPlan.rSocketRequester, 5);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkSizedRequestStreamT10(ExecutionPlan execPlan) {
         List<SizedMessage> response = JsonRequests.sizedRequestStream(execPlan.rSocketRequester, 20);
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkSizedRequestStreamT20(ExecutionPlan execPlan) {
         List<SizedMessage> response = JsonRequests.sizedRequestStream(execPlan.rSocketRequester, 20);

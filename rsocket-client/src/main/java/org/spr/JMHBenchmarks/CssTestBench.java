@@ -25,7 +25,7 @@ public class CssTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkStreamResponseDtoT10(ExecutionPlan execPlan) {
+    public void benchmarkStreamResponseA(ExecutionPlan execPlan) {
         ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester,  "Hello from client");
     }
 
@@ -34,7 +34,7 @@ public class CssTestBench {
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
     @Threads(20)
-    public void benchmarkStreamResponseDtoT20(ExecutionPlan execPlan) {
+    public void benchmarkStreamResponseB(ExecutionPlan execPlan) {
         ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester, "Hello from client");
     }
 
@@ -42,19 +42,20 @@ public class CssTestBench {
     @Fork(value = 1, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
-    @Threads(10)
-    public void benchmarkBiStreamDtoT10(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = ProtoRequests.biStream(execPlan.rSocketRequester, "Hello from client");
+    @Threads(50)
+    public void benchmarkStreamResponseC(ExecutionPlan execPlan) {
+        ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester,  "Hello from client");
     }
 
     @Benchmark
     @Fork(value = 1, warmups = 1)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = 1)
-    @Threads(20)
-    public void benchmarkBiStreamDtoT20(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = ProtoRequests.biStream(execPlan.rSocketRequester,"Hello from client");
+    @Threads(100)
+    public void benchmarkStreamResponseD(ExecutionPlan execPlan) {
+        ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester, "Hello from client");
     }
+
 
     @State(Scope.Thread)
     public static class ExecutionPlan {

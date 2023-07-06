@@ -62,8 +62,8 @@ public class MessageController {
      */
     @MessageMapping("request-stream-proto")
     public Flux<ProtoMessage> requestStreamProto(ProtoMessage request) {
-        return Flux.
-                range(0, 200)
+        return Flux
+                .range(0, 200)
                 .map(i -> ProtoMessage
                         .newBuilder()
                         .setBody("Responding to: " + request.getBody() + " at:" + Instant.now())

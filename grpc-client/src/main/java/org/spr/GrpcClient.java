@@ -2,6 +2,7 @@ package org.spr;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import org.spr.protos.MessageDbServiceGrpc;
 import org.spr.protos.MessageServiceGrpc;
 import org.spr.requests.Requests;
 
@@ -14,10 +15,11 @@ public class GrpcClient {
                 .maxInboundMessageSize(40 * 1024 * 1024)
                 .usePlaintext()
                 .build();
+        run();
     }
 
     public static void run() throws Exception {
-        var stub = MessageServiceGrpc.newBlockingStub(channel);
-        Requests.requestResponse(stub, "Hello from client");
+        var stub = MessageDbServiceGrpc.newBlockingStub(channel);
+        Requests.getAllMessages(stub);
     }
 }

@@ -16,45 +16,37 @@ import java.util.concurrent.TimeUnit;
  * server functions returning echos.
  */
 @BenchmarkMode(Mode.Throughput)
-@Fork(value = 2)
+@Fork(value = 1, warmups = 1)
+@Warmup(iterations = 1)
 @Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
 public class CssTestBench {
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
-    public void benchmarkStreamResponseT10(ExecutionPlan execPlan) throws InterruptedException {
+    public void benchmarkStreamResponseA(ExecutionPlan execPlan) throws InterruptedException {
+        ProtoMessage response = Requests.streamResponse(execPlan.bStub, "Hello from client");
+    }
+
+
+    @Benchmark
+    @Threads(20)
+    public void benchmarkStreamResponseB(ExecutionPlan execPlan) throws InterruptedException {
+        ProtoMessage response = Requests.streamResponse(execPlan.bStub, "Hello from client");
+    }
+
+
+    @Benchmark
+    @Threads(50)
+    public void benchmarkStreamResponseC(ExecutionPlan execPlan) throws InterruptedException {
         ProtoMessage response = Requests.streamResponse(execPlan.bStub, "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
-    @Threads(20)
-    public void benchmarkStreamResponseT20(ExecutionPlan execPlan) throws InterruptedException {
+    @Threads(100)
+    public void benchmarkStreamResponseD(ExecutionPlan execPlan) throws InterruptedException {
         ProtoMessage response = Requests.streamResponse(execPlan.bStub, "Hello from client");
     }
 
-    @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
-    @Threads(10)
-    public void benchmarkBiStreamT10(ExecutionPlan execPlan) throws InterruptedException {
-        List<ProtoMessage> response = Requests.biStream(execPlan.bStub, "Hello from client");
-    }
-
-    @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
-    @Threads(20)
-    public void benchmarkBiStreamT20(ExecutionPlan execPlan) throws InterruptedException {
-        List<ProtoMessage> response = Requests.biStream(execPlan.bStub, "Hello from client");
-    }
 
     @State(Scope.Thread)
     public static class ExecutionPlan {

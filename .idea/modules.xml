@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/grpc-client/spring-benchmark.grpc-client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/grpc-client/spring-benchmark.grpc-client.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/grpc-server/spring-benchmark.grpc-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/grpc-server/spring-benchmark.grpc-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/rsocket-client/spring-benchmark.rsocket-client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/rsocket-client/spring-benchmark.rsocket-client.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/rsocket-server/spring-benchmark.rsocket-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/rsocket-server/spring-benchmark.rsocket-server.main.iml" />
     </modules>
