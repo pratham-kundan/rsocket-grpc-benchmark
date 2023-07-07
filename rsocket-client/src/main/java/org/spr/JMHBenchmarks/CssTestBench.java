@@ -15,42 +15,27 @@ import java.util.concurrent.TimeUnit;
  * This class contains functions to benchmark the throughput of
  * server functions returning echos.
  */
-@BenchmarkMode(Mode.Throughput)
-@Fork(value = 2)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class CssTestBench {
+public class CssTestBench extends BaseTestBench{
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(10)
     public void benchmarkStreamResponseA(ExecutionPlan execPlan) {
         ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester,  "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(20)
     public void benchmarkStreamResponseB(ExecutionPlan execPlan) {
         ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(50)
     public void benchmarkStreamResponseC(ExecutionPlan execPlan) {
         ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester,  "Hello from client");
     }
 
     @Benchmark
-    @Fork(value = 1, warmups = 1)
-    @BenchmarkMode(Mode.Throughput)
-    @Warmup(iterations = 1)
     @Threads(100)
     public void benchmarkStreamResponseD(ExecutionPlan execPlan) {
         ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester, "Hello from client");
@@ -63,7 +48,7 @@ public class CssTestBench {
 
         @Setup(Level.Iteration)
         public void setUp() {
-            rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
+            rSocketRequester = RequesterUtils.newProtobufRequester(serverHost, serverPort);
         }
 
         @TearDown(Level.Iteration)

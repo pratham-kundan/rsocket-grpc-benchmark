@@ -11,7 +11,7 @@ import java.util.List;
 public class GrpcJmhRunner {
     public static void main(String[] args) throws Exception {
         Options options = new OptionsBuilder()
-                .include(SssTestBench.class.getName())
+                .include(CssDbTestBench.class.getName())
                 .resultFormat(ResultFormatType.CSV)
                 .result("grpc-results.csv")
                 .build();

@@ -7,14 +7,8 @@ import org.spr.requests.ProtoRequests;
 import org.springframework.messaging.rsocket.RSocketRequester;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-
-@BenchmarkMode(Mode.Throughput)
-@Fork(value = 1, warmups = 1)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class ChannelTestBench {
+public class ChannelTestBench extends BaseTestBench{
 
     @Benchmark
     @Threads(10)
@@ -46,7 +40,7 @@ public class ChannelTestBench {
 
         @Setup(Level.Iteration)
         public void setUp() {
-            rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
+            rSocketRequester = RequesterUtils.newProtobufRequester(serverHost, serverPort);
         }
 
         @TearDown(Level.Iteration)

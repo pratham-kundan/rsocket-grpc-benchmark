@@ -3,23 +3,16 @@ package org.spr.JMHBenchmarks;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.openjdk.jmh.annotations.*;
-import org.spr.requests.Requests;
 import org.spr.protos.MessageServiceGrpc;
 import org.spr.protos.ProtoMessage;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import org.spr.requests.Requests;
 
 /**
  * for Protobuf
  * This class contains functions to benchmark the throughput of
  * server functions returning echos.
  */
-@Fork(value = 1, warmups = 1)
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class ReqResTestBench {
+public class ReqResTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)
@@ -54,7 +47,7 @@ public class ReqResTestBench {
         @Setup(Level.Iteration)
         public void setUp() {
             channel = ManagedChannelBuilder
-                    .forAddress("localhost", 8787)
+                    .forAddress(serverHost, serverPort)
                     .usePlaintext()
                     .build();
 

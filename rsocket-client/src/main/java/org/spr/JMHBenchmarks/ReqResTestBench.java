@@ -15,11 +15,7 @@ import java.util.concurrent.TimeUnit;
  * server functions returning echos.
  */
 
-@Fork(value = 1, warmups = 1)
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class ReqResTestBench {
+public class ReqResTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)
@@ -52,7 +48,7 @@ public class ReqResTestBench {
 
         @Setup(Level.Iteration)
         public void setUp() {
-            rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
+            rSocketRequester = RequesterUtils.newProtobufRequester(serverHost, serverPort);
         }
 
         @TearDown(Level.Iteration)

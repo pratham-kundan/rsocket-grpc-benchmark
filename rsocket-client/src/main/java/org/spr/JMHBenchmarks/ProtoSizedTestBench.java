@@ -19,11 +19,7 @@ import java.util.concurrent.TimeUnit;
  * server functions returning large objects.
  */
 
-@Fork(value = 1, warmups = 1)
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class ProtoSizedTestBench {
+public class ProtoSizedTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)
@@ -56,7 +52,7 @@ public class ProtoSizedTestBench {
 
         @Setup(Level.Iteration)
         public void setUp() {
-            rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
+            rSocketRequester = RequesterUtils.newProtobufRequester(serverHost, serverPort);
         }
 
         @TearDown(Level.Iteration)

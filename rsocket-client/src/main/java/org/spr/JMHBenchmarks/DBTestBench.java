@@ -13,11 +13,7 @@ import java.util.concurrent.TimeUnit;
  * This class contains functions to benchmark the throughput of
  * database query endpoints
  */
-@Fork(value = 1, warmups = 1)
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class DBTestBench {
+public class DBTestBench extends BaseTestBench {
     @Benchmark
     @Threads(10)
     public void benchmarkDbGetAllA(ExecutionPlan execPlan) {
@@ -48,7 +44,7 @@ public class DBTestBench {
 
         @Setup(Level.Iteration)
         public void setUp() {
-            rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
+            rSocketRequester = RequesterUtils.newProtobufRequester(serverHost, serverPort);
         }
 
         @TearDown(Level.Iteration)

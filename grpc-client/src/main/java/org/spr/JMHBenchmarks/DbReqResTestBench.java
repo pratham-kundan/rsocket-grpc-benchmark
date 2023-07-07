@@ -7,20 +7,14 @@ import org.spr.protos.MessageDbServiceGrpc;
 import org.spr.protos.ProtoMessage;
 import org.spr.requests.Requests;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This class contains functions to benchmark the throughput of
  * database query endpoints
  */
-@BenchmarkMode(Mode.Throughput)
-@Fork(value = 1, warmups = 1)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class DbReqResTestBench {
+public class DbReqResTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)
@@ -60,7 +54,7 @@ public class DbReqResTestBench {
         @Setup(Level.Iteration)
         public void setUp() throws InterruptedException {
             channel = ManagedChannelBuilder
-                    .forAddress("localhost", 8787)
+                    .forAddress(serverHost, serverPort)
                     .maxInboundMessageSize(40 * 1024 * 1024)
                     .usePlaintext()
                     .build();

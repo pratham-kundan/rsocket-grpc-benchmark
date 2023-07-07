@@ -15,11 +15,7 @@ import java.util.concurrent.TimeUnit;
  * This class contains functions to benchmark the throughput of
  * database query endpoints
  */
-@Fork(value = 1, warmups = 1)
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class CssDbTestBench {
+public class CssDbTestBench extends BaseTestBench {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static List<String> generateRandomString(int length, int listLength) {
@@ -79,7 +75,7 @@ public class CssDbTestBench {
 
         @Setup(Level.Iteration)
         public void setUp() {
-            rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
+            rSocketRequester = RequesterUtils.newProtobufRequester(serverHost, serverPort);
         }
 
         @TearDown(Level.Iteration)

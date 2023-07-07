@@ -3,23 +3,18 @@ package org.spr.JMHBenchmarks;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.openjdk.jmh.annotations.*;
-import org.spr.requests.Requests;
 import org.spr.protos.ProtoSizedMessage;
 import org.spr.protos.SizedMessageServiceGrpc;
+import org.spr.requests.Requests;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * for Protobuf
  * This class contains functions to benchmark the throughput of
  * server functions returning large objects.
  */
-@BenchmarkMode(Mode.Throughput)
-@Fork(value = 1, warmups = 1)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
-public class SizedTestBench {
+public class SizedTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)
@@ -54,7 +49,7 @@ public class SizedTestBench {
         @Setup(Level.Iteration)
         public void setUp() {
             channel = ManagedChannelBuilder
-                    .forAddress("localhost", 8787)
+                    .forAddress(serverHost, serverPort)
                     .maxInboundMessageSize(40 * 1024 * 1024)
                     .usePlaintext()
                     .build();
