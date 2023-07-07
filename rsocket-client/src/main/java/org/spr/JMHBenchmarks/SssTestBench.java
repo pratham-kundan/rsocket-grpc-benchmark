@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Fork(value = 1, warmups = 1)
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 1)
-@Measurement(iterations = 2, time = 5, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
 public class SssTestBench {
     @Benchmark
     @Threads(10)
@@ -42,12 +42,12 @@ public class SssTestBench {
     public static class ExecutionPlan {
         public RSocketRequester rSocketRequester;
 
-        @Setup(Level.Iteration)
+        @Setup(Level.Invocation)
         public void setUp() {
             rSocketRequester = RequesterUtils.newProtobufRequester("localhost", 8989);
         }
 
-        @TearDown(Level.Iteration)
+        @TearDown(Level.Invocation)
         public void tearDown() {
             rSocketRequester.dispose();
         }
