@@ -1,8 +1,9 @@
 # rsocket-grpc-benchmark
-Benchmarking RSockets  and gRPC
+### Benchmarking RSockets and gRPC
+
+[Some details here](https://gabby-salute-8bc.notion.site/Intern-Presentation-4fcc61d97c7b44f59d36653b9f57e30f)
 
 To run the rsocket-server use:
-
 `./gradlew :rsocket-server:bootRun`
 
 To run the benchmark for rsockets use:
