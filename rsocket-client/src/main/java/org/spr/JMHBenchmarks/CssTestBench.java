@@ -11,9 +11,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * for JSON
- * This class contains functions to benchmark the throughput of
- * server functions returning echos.
+ * This class contains benchmarks for Client Side Streaming
  */
 public class CssTestBench extends BaseTestBench{
 

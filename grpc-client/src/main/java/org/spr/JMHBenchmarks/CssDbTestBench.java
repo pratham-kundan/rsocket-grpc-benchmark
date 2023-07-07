@@ -11,9 +11,7 @@ import org.spr.utils.Utils;
 import java.util.List;
 
 /**
- * for Protobuf
- * This class contains functions to benchmark the throughput of
- * database query endpoints
+ * This class contains benchmarks for Client Side Streaming
  */
 public class CssDbTestBench extends BaseTestBench {
 

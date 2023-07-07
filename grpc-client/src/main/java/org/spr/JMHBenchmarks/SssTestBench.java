@@ -9,6 +9,10 @@ import org.spr.requests.Requests;
 
 import java.util.List;
 
+/**
+ * This class contains functions to benchmark Server Streaming data
+ * to the client
+ */
 public class SssTestBench extends BaseTestBench {
     @Benchmark
     @Threads(10)

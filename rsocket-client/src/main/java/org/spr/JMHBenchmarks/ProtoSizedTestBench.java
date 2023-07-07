@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * for protobuf
  * This class contains functions to benchmark the throughput of
  * server functions returning large objects.
  */

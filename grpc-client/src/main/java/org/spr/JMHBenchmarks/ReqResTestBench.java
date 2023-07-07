@@ -8,7 +8,6 @@ import org.spr.protos.ProtoMessage;
 import org.spr.requests.Requests;
 
 /**
- * for Protobuf
  * This class contains functions to benchmark the throughput of
  * server functions returning echos.
  */

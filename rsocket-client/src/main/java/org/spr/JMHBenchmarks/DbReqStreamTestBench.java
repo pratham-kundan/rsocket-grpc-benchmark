@@ -7,13 +7,12 @@ import org.spr.requests.ProtoRequests;
 import org.springframework.messaging.rsocket.RSocketRequester;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
- * This class contains functions to benchmark the throughput of
- * database query endpoints
+ * This class contains functions to benchmark receiving a stream of
+ * documents from the DB
  */
-public class DBTestBench extends BaseTestBench {
+public class DbReqStreamTestBench extends BaseTestBench {
     @Benchmark
     @Threads(10)
     public void benchmarkDbGetAllA(ExecutionPlan execPlan) {

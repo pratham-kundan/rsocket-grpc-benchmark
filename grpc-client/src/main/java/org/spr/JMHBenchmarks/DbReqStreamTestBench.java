@@ -10,11 +10,10 @@ import org.spr.requests.Requests;
 import java.util.List;
 
 /**
- * for Protobuf
  * This class contains functions to benchmark the throughput of
  * database query endpoints
  */
-public class DBTestBench extends BaseTestBench {
+public class DbReqStreamTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)

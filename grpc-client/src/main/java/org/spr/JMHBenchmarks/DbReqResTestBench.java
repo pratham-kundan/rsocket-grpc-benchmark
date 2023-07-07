@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * This class contains functions to benchmark the throughput of
- * database query endpoints
+ * This class contains functions to benchmark the request-response
+ * to the database
  */
 public class DbReqResTestBench extends BaseTestBench {
 

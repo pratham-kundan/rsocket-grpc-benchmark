@@ -10,7 +10,6 @@ import org.spr.requests.Requests;
 import java.util.List;
 
 /**
- * for Protobuf
  * This class contains functions to benchmark the throughput of
  * server functions returning large objects.
  */

@@ -10,9 +10,7 @@ import org.spr.requests.Requests;
 import java.util.List;
 
 /**
- * for Protobuf
- * This class contains functions to benchmark the throughput of
- * server functions returning echos.
+ * This class contains functions to benchmark for bidirectional Streaming.
  */
 public class ChannelTestBench extends BaseTestBench {
 

@@ -8,9 +8,7 @@ import org.spr.protos.ProtoMessage;
 import org.spr.requests.Requests;
 
 /**
- * for Protobuf
- * This class contains functions to benchmark the throughput of
- * server functions returning echos.
+ * This class contains benchmarks for Client Side Streaming
  */
 public class CssTestBench extends BaseTestBench {
 

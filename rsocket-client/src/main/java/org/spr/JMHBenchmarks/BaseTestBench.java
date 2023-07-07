@@ -5,6 +5,9 @@ import org.spr.utils.PropertiesLoader;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * BaseTestBench with standard configurations
+ */
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 0, warmups = 1)
 @Warmup(iterations = 1)

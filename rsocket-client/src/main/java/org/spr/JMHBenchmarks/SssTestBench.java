@@ -7,8 +7,10 @@ import org.spr.requests.ProtoRequests;
 import org.springframework.messaging.rsocket.RSocketRequester;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * This class contains benchmarks for Server Streaming to the client
+ */
 public class SssTestBench extends BaseTestBench {
     @Benchmark
     @Threads(10)
@@ -19,7 +21,7 @@ public class SssTestBench extends BaseTestBench {
     @Benchmark
     @Threads(20)
     public void benchmarkRequestStreamB(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester,"Hello from client");
+        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
@@ -31,7 +33,7 @@ public class SssTestBench extends BaseTestBench {
     @Benchmark
     @Threads(100)
     public void benchmarkRequestStreamD(ExecutionPlan execPlan) {
-        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester,"Hello from client");
+        List<ProtoMessage> response = ProtoRequests.requestStream(execPlan.rSocketRequester, "Hello from client");
     }
 
     @State(Scope.Thread)

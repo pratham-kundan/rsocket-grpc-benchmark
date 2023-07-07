@@ -12,8 +12,8 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This class contains functions to benchmark the throughput of
- * database query endpoints
+ * This class contains functions to benchmark the request-response
+ * to the database
  */
 public class DbReqResTestBench extends BaseTestBench {
     @Benchmark

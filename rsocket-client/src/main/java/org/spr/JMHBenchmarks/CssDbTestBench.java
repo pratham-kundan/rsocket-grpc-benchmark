@@ -12,8 +12,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This class contains functions to benchmark the throughput of
- * database query endpoints
+ * This class contains benchmarks for Client Side Streaming to a Mongo Database
  */
 public class CssDbTestBench extends BaseTestBench {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

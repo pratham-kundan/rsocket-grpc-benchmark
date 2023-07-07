@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * for JSON
  * This class contains functions to benchmark the throughput of
  * server functions returning echos.
  */

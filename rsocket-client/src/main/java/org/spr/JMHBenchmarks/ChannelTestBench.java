@@ -8,6 +8,9 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 
 import java.util.List;
 
+/**
+ * This class contains benchmarks for Bidirectional Streaming
+ */
 public class ChannelTestBench extends BaseTestBench{
 
     @Benchmark
