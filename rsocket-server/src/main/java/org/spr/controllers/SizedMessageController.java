@@ -1,7 +1,6 @@
 package org.spr.controllers;
 
 import com.google.protobuf.ByteString;
-import org.spr.data.SizedMessage;
 import org.spr.protos.ProtoSizedMessage;
 import org.spr.protos.SizedMessageRequest;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -11,38 +10,6 @@ import reactor.core.publisher.Mono;
 
 @Controller
 public class SizedMessageController {
-
-    /**
-     * Returns a data object of requested size
-     *
-     * @param sizeMb desired size in MB
-     * @return A Mono containing a SizedMessage Data Object
-     */
-    @MessageMapping("sized-request-response")
-    public Mono<SizedMessage> sizedRequestResponse(Integer sizeMb) {
-        byte[][] data = new byte[sizeMb][];
-        for (int i = 0; i < sizeMb; i++) {
-            data[i] = new byte[1024 * 1024];
-        }
-        return Mono.just(new SizedMessage(data));
-    }
-
-    /**
-     * Returns a stream of data objects (1MB each) of requested size
-     *
-     * @param sizeMb desired size in MB
-     * @return A reactive stream containing SizedMessage Data Objects
-     */
-    @MessageMapping("sized-request-stream")
-    public Flux<SizedMessage> sizedRequestStream(Integer sizeMb) {
-        return Flux.range(0, sizeMb)
-                .map((integer) -> {
-                    byte[][] data = new byte[1][];
-                    data[0] = new byte[1024 * 1024];
-                    return new SizedMessage(data);
-                });
-    }
-
     /**
      * Returns a SizedMessage protobuf of requested size
      *

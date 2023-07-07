@@ -1,13 +1,12 @@
 package org.spr.utils;
 
 import org.spr.data.Message;
-import org.spr.data.MessageDto;
 import org.spr.protos.ProtoMessage;
 
 public class MessageUtils {
 
     /**
-     * Function to convert Message Mongo Document to a Message protobuf
+     * Function to convert Message MongoDB Document to a Message protobuf
      *
      * @param message Mongo document
      * @return Message protobuf
@@ -18,15 +17,4 @@ public class MessageUtils {
                 .setId(message.getId())
                 .build();
     }
-
-    /**
-     * Function to convert Message Mongo Document to a Message Data Object
-     *
-     * @param message Mongo document
-     * @return Message data object
-     */
-    public static MessageDto messageToDto(Message message) {
-        return new MessageDto(message.getId(), message.getBody());
-    }
-
 }

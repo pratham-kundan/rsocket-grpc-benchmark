@@ -1,13 +1,11 @@
 package org.spr.controllers;
 
-import org.spr.data.MessageDto;
 import org.spr.protos.ProtoMessage;
 import org.spr.service.MessageService;
 import org.spr.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -28,31 +26,6 @@ public class MessageDBController {
         return messageService
                 .create(body)
                 .map(Object::toString);
-    }
-
-    /**
-     * gets message by id
-     *
-     * @param id id of the message
-     * @return Message Data Object with the requested id
-     */
-    @MessageMapping("get/{id}")
-    public Mono<MessageDto> getById(@PathVariable String id) {
-        return messageService
-                .getById(id)
-                .map(MessageUtils::messageToDto);
-    }
-
-    /**
-     * returns a stream of all messages in the db
-     *
-     * @return Reactive stream of messages as data objects
-     */
-    @MessageMapping("get-all")
-    public Flux<MessageDto> getAll() {
-        return messageService
-                .getAll()
-                .map(MessageUtils::messageToDto);
     }
 
     /**
