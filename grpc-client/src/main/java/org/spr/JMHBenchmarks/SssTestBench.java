@@ -44,7 +44,7 @@ public class SssTestBench extends BaseTestBench {
 
         public MessageServiceGrpc.MessageServiceBlockingStub bStub;
 
-        @Setup(Level.Invocation)
+        @Setup(Level.Iteration)
         public void setUp() {
             channel = ManagedChannelBuilder
                     .forAddress(serverHost, serverPort)
@@ -54,7 +54,7 @@ public class SssTestBench extends BaseTestBench {
             bStub = MessageServiceGrpc.newBlockingStub(channel);
         }
 
-        @TearDown(Level.Invocation)
+        @TearDown(Level.Iteration)
         public void tearDown() {
             channel.shutdown();
         }

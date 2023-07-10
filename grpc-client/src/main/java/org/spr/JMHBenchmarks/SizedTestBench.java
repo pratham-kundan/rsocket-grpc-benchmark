@@ -18,25 +18,25 @@ public class SizedTestBench extends BaseTestBench {
     @Benchmark
     @Threads(10)
     public void benchmarkRequestResponseT10(ExecutionPlan execPlan) {
-        ProtoSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 30);
+        ProtoSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 5);
     }
 
     @Benchmark
     @Threads(20)
     public void benchmarkRequestResponseT20(ExecutionPlan execPlan) {
-        ProtoSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 30);
+        ProtoSizedMessage response = Requests.sizedRequestResponse(execPlan.bStub, 5);
     }
 
     @Benchmark
     @Threads(10)
     public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
-        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 100);
+        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 10);
     }
 
     @Benchmark
     @Threads(20)
     public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
-        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 100);
+        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 10);
     }
 
     @State(Scope.Thread)

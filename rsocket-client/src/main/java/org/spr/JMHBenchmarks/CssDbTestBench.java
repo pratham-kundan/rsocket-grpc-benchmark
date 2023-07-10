@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * This class contains benchmarks for Client Side Streaming to a Mongo Database
@@ -40,7 +41,7 @@ public class CssDbTestBench extends BaseTestBench {
     @Threads(10)
     public void benchmarkDbPushRemoveA(ExecutionPlan execPlan) {
         List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 100));
-        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
+        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());;
         ProtoMessage response = ProtoRequests.removeAll(execPlan.rSocketRequester, toBeDeleted);
     }
 
@@ -48,7 +49,7 @@ public class CssDbTestBench extends BaseTestBench {
     @Threads(20)
     public void benchmarkDbPushRemoveB(ExecutionPlan execPlan) {
         List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 100));
-        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
+        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());;
         ProtoMessage response = ProtoRequests.removeAll(execPlan.rSocketRequester, toBeDeleted);
     }
 
@@ -56,7 +57,7 @@ public class CssDbTestBench extends BaseTestBench {
     @Threads(50)
     public void benchmarkDbPushRemoveC(ExecutionPlan execPlan) {
         List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 100));
-        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
+        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());;
         ProtoMessage response = ProtoRequests.removeAll(execPlan.rSocketRequester, toBeDeleted);
     }
 
@@ -64,7 +65,7 @@ public class CssDbTestBench extends BaseTestBench {
     @Threads(100)
     public void benchmarkDbPushRemoveD(ExecutionPlan execPlan) {
         List<ProtoMessage> messageList = ProtoRequests.pushAll(execPlan.rSocketRequester, generateRandomString(100, 100));
-        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).toList();
+        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());
         ProtoMessage response = ProtoRequests.removeAll(execPlan.rSocketRequester, toBeDeleted);
     }
 

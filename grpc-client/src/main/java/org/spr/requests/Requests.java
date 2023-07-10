@@ -52,8 +52,10 @@ public class Requests {
                 cdl.countDown();
             }
         };
+
         StreamObserver<ProtoMessage> requestObserver = stub.streamResponse(responseObserver);
         for (int i = 0; i < 200; i++) requestObserver.onNext(ProtoMessage.newBuilder().setBody(requestText).build());
+
         requestObserver.onCompleted();
         boolean received = cdl.await(20, TimeUnit.SECONDS);
         return response[0];
@@ -78,9 +80,12 @@ public class Requests {
                 cdl.countDown();
             }
         };
+
         StreamObserver<ProtoMessage> requestObserver = stub.biStream(responseObserver);
+
         for (int i = 0; i < 200; i++) requestObserver.onNext(ProtoMessage.newBuilder().setBody(requestText).build());
         requestObserver.onCompleted();
+
         boolean received = cdl.await(20, TimeUnit.SECONDS);
         return response;
     }

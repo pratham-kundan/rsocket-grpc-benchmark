@@ -11,9 +11,9 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class RsJmhRunner {
     public static void main(String[] args) throws Exception {
         Options options = new OptionsBuilder()
-                .include(SssTestBench.class.getName())
+                .include(ProtoSizedTestBench.class.getName())
                 .resultFormat(ResultFormatType.CSV)
-                .result("rsocket-results.csv")
+                .result("./Results/container-csv/rs_med_sized_tpt.csv")
                 .build();
 
         new Runner(options).run();

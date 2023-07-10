@@ -9,6 +9,7 @@ import org.spr.requests.Requests;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * This class contains functions to benchmark the request-response
@@ -62,7 +63,7 @@ public class DbReqResTestBench extends BaseTestBench {
             dbBStub = MessageDbServiceGrpc.newBlockingStub(channel);
 
             presentMessages = Requests.getAllMessages(dbBStub)
-                    .stream().map(ProtoMessage::getId).toList();
+                    .stream().map(ProtoMessage::getId).collect(Collectors.toList());
         }
 
         @TearDown(Level.Iteration)
