@@ -19,3 +19,5 @@ To run the benchmark for rsockets use:
 `./gradlew :grpc-client:runBm`
 
 (Requires a running mongodb instance to run the database related benchmarks.)
+
+Made in java-17.0.7 gradle 8.1.1
