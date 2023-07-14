@@ -16,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * This class contains functions to benchmark the throughput of
  * server functions returning large objects.
+ *
+ * Slightly different setup runs the single request response function with 10 and 20 threads
+ * followed by the request stream function with 10 and 20 threads
  */
 
 public class ProtoSizedTestBench extends BaseTestBench {

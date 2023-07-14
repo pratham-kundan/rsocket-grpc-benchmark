@@ -1,5 +1,0 @@
-"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
-"org.spr.JMHBenchmarks.DbReqStreamTestBench.benchmarkDbGetAllA","thrpt",10,3,538.045792,711.803003,"ops/s"
-"org.spr.JMHBenchmarks.DbReqStreamTestBench.benchmarkDbGetAllB","thrpt",20,3,698.097868,187.679886,"ops/s"
-"org.spr.JMHBenchmarks.DbReqStreamTestBench.benchmarkDbGetAllC","thrpt",50,3,876.751287,95.415188,"ops/s"
-"org.spr.JMHBenchmarks.DbReqStreamTestBench.benchmarkDbGetAllD","thrpt",100,3,935.851625,156.836549,"ops/s"

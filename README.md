@@ -3,21 +3,43 @@
 
 [Some details here](https://gabby-salute-8bc.notion.site/Intern-Presentation-4fcc61d97c7b44f59d36653b9f57e30f)
 
+### Server
+
+(Change server port in application.properties)
+
 To run the rsocket-server use:
 `./gradlew :rsocket-server:bootRun`
 
-To run the benchmark for rsockets use:
-
-`./gradlew :rsocket-client:runBm`
-
 To run the grpc-server use:
-
 `./gradlew :grpc-server:bootRun`
 
-To run the benchmark for rsockets use:
+### Benchmarks
 
+(Change server host and port in application.properties. Class under benchmark can be changed in teh respective runner classes )
+
+To run the benchmark for RSockets use:
+`./gradlew :rsocket-client:runBm`
+
+
+To run the benchmark for gRPC use:
 `./gradlew :grpc-client:runBm`
 
-(Requires a running mongodb instance to run the database related benchmarks.)
+### Requirements
 
-Made in java-17.0.7 gradle 8.1.1
+* A running mongodb instance to run the database related benchmarks (change db connection in application.properties)
+* java-17.0.7 
+
+## Benchmarking
+Benchmarks are present in the `JMHBenchmarks` package in both of `rsocket-client` and `grpc-client`.
+
+Benchmarking suites exist as classes contains 4 benchmark functions executed on 10, 20, 50 and 100
+threads respectively. This was managed by the `@Thread` annotation of JMH.
+
+PS : `CustomBenchmarks` package contains benchmarks run by the `custom-bench` sub-project.
+They exist just to verify the throughput from JMH and are not used in the results. 
+
+## Results
+Result graphs and visualisation python scripts present in : `./Results`
+
+Benchmarks were run with the server as a local process and also as a 
+containerized process. Graphs for both are present in respective folders

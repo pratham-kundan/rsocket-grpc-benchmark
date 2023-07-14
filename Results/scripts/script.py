@@ -33,7 +33,7 @@ SIZED_THREAD_STATS = [
     "10 Threads\nStream",
     "20 Threads\nStream",
 ]
-CSV_PATH = "../container-csv2"
+CSV_PATH = "../CSVdata/container-csv2"
 OUT_PATH = "./graphs2"
 
 
