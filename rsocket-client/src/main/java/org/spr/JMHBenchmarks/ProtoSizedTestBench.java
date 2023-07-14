@@ -35,13 +35,13 @@ public class ProtoSizedTestBench extends BaseTestBench {
     @Benchmark
     @Threads(10)
     public void benchmarkSizedRequestStreamT10(ExecutionPlan execPlan) {
-        List<ProtoSizedMessage> response = ProtoRequests.sizedRequestStream(execPlan.rSocketRequester, 10);
+        List<ProtoSizedMessage> response = ProtoRequests.sizedRequestStream(execPlan.rSocketRequester, 5);
     }
 
     @Benchmark
     @Threads(20)
     public void benchmarkSizedRequestStreamT20(ExecutionPlan execPlan) {
-        List<ProtoSizedMessage> response = ProtoRequests.sizedRequestStream(execPlan.rSocketRequester, 10);
+        List<ProtoSizedMessage> response = ProtoRequests.sizedRequestStream(execPlan.rSocketRequester, 5);
     }
 
 

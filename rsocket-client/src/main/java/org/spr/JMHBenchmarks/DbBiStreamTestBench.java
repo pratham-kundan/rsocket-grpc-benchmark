@@ -9,13 +9,15 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
- * This class contains benchmarks for Client Side Streaming to a Mongo Database
+ * This class contains benchmarks for Benchmarking Database Controller
+ * It first adds several documents to the database and then removes all added documents
+ * <p>
+ * Both were done simultaneously to prevent storing too much data on the database
  */
-public class CssDbTestBench extends BaseTestBench {
+public class DbBiStreamTestBench extends BaseTestBench {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static List<String> generateRandomString(int length, int listLength) {

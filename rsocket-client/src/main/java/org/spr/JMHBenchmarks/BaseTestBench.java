@@ -6,12 +6,12 @@ import org.spr.utils.PropertiesLoader;
 import java.util.concurrent.TimeUnit;
 
 /**
- * BaseTestBench with standard configurations
+ * Base Benchmark with standard configurations class that is inherited from on all benchmarks
  */
 @BenchmarkMode(Mode.Throughput)
-@Fork(value = 0, warmups = 1)
+@Fork(value = 1)
 @Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 3, time = 5, timeUnit = TimeUnit.SECONDS)
 public class BaseTestBench {
     public static String serverHost = PropertiesLoader.getProperty("server_host");
     public static int serverPort = Integer.parseInt(PropertiesLoader.getProperty("server_port"));

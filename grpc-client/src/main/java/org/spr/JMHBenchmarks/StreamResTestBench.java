@@ -8,9 +8,11 @@ import org.spr.protos.ProtoMessage;
 import org.spr.requests.Requests;
 
 /**
- * This class contains benchmarks for Client Side Streaming
+ * This class contains benchmarks for Client Side Streaming.
+ * <p>
+ * Sends a stream of messages to the server and awaits a response at the end of the stream
  */
-public class CssTestBench extends BaseTestBench {
+public class StreamResTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)

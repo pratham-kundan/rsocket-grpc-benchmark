@@ -9,8 +9,10 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 import java.util.List;
 
 /**
- * This class contains functions to benchmark receiving a stream of
- * documents from the DB
+ * This class contains functions to benchmark the throughput of
+ * database query endpoints
+ * <p>
+ * Sends a message to the server and accepts a stream of documents and collects it into a list
  */
 public class DbReqStreamTestBench extends BaseTestBench {
     @Benchmark

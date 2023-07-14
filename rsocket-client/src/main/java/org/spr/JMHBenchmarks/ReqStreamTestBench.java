@@ -9,9 +9,12 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 import java.util.List;
 
 /**
- * This class contains benchmarks for Server Streaming to the client
+ * This class contains functions to benchmark Server Streaming data
+ * to the client
+ * <p>
+ * Sends a message to the server and accepts a stream of messages and collects them into a list
  */
-public class SssTestBench extends BaseTestBench {
+public class ReqStreamTestBench extends BaseTestBench {
     @Benchmark
     @Threads(10)
     public void benchmarkRequestStreamA(ExecutionPlan execPlan) {

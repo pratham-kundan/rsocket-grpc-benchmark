@@ -21,8 +21,6 @@ service SizedMessageService {
   rpc sizedRequestResponse (SizedMessageRequest) returns (ProtoSizedMessage) {};
 
   rpc sizedRequestStream (SizedMessageRequest) returns (stream ProtoSizedMessage) {};
-
-  rpc sizedStreamResponse (stream ProtoSizedMessage) returns (ProtoMessage) {};
 }
 
 service MessageService {

@@ -4,16 +4,28 @@ import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-import org.spr.CustomBenchmarks.DbReqStreamBenchmark;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class GrpcJmhRunner {
     public static void main(String[] args) throws Exception {
+        HashMap<String, String> name_map = new HashMap<>();
+        name_map.put(ReqResTestBench.class.getName(), "request_response");
+        name_map.put(ReqStreamTestBench.class.getName(), "request_stream");
+        name_map.put(StreamResTestBench.class.getName(), "stream_response");
+        name_map.put(ChannelTestBench.class.getName(), "channel");
+        name_map.put(DbReqResTestBench.class.getName(), "db_request_response");
+        name_map.put(DbReqStreamTestBench.class.getName(), "db_request_stream");
+        name_map.put(DbBiStreamTestBench.class.getName(), "db_bi_stream");
+        name_map.put(SizedTestBench.class.getName(), "large_sized");
+
+        // replace with benchmark to be run
+        String chosen = SizedTestBench.class.getName();
+
         Options options = new OptionsBuilder()
-                .include(SizedTestBench.class.getName())
+                .include(chosen)
                 .resultFormat(ResultFormatType.CSV)
-                .result("./Results/container-csv/grpc_med_sized_tpt.csv")
+                .result("./grpc_" + name_map.get(chosen) + "_tpt.csv") // Path of throughput csv
                 .build();
 
         new Runner(options).run();

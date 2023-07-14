@@ -11,6 +11,9 @@ import java.util.List;
 
 /**
  * This class contains functions to benchmark for bidirectional Streaming.
+ * <p>
+ * Stream messages to the server and accepts a stream of messages from the server and
+ * collects them into a list
  */
 public class ChannelTestBench extends BaseTestBench {
 

@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * This class contains functions to benchmark the request-response
  * to the database
+ * <p>
+ * Requests an object from the database
  */
 public class DbReqResTestBench extends BaseTestBench {
     @Benchmark

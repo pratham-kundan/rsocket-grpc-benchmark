@@ -12,15 +12,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class contains benchmarks for Client Side Streaming
+ * This class contains benchmarks for Benchmarking Database service
+ * It first adds several documents to the database and then removes all added documents
+ * <p>
+ * Both were done simultaneously to prevent storing too much data on the database
  */
-public class CssDbTestBench extends BaseTestBench {
+public class DbBiStreamTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)
     public void benchmarkDbPushRemoveA(ExecutionPlan execPlan) throws InterruptedException {
         List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbStub, Utils.generateRandomString(100, 100));
-        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());;
+        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());
         ProtoMessage response = Requests.removeAll(execPlan.dbStub, toBeDeleted);
     }
 
@@ -29,7 +32,7 @@ public class CssDbTestBench extends BaseTestBench {
     @Threads(20)
     public void benchmarkDbPushRemoveB(ExecutionPlan execPlan) throws InterruptedException {
         List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbStub, Utils.generateRandomString(100, 100));
-        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());;
+        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());
         ProtoMessage response = Requests.removeAll(execPlan.dbStub, toBeDeleted);
     }
 
@@ -37,7 +40,7 @@ public class CssDbTestBench extends BaseTestBench {
     @Threads(50)
     public void benchmarkPushRemoveC(ExecutionPlan execPlan) throws InterruptedException {
         List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbStub, Utils.generateRandomString(100, 100));
-        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());;
+        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());
         ProtoMessage response = Requests.removeAll(execPlan.dbStub, toBeDeleted);
     }
 
@@ -45,7 +48,7 @@ public class CssDbTestBench extends BaseTestBench {
     @Threads(100)
     public void benchmarkPushRemoveD(ExecutionPlan execPlan) throws InterruptedException {
         List<ProtoMessage> messageList = Requests.pushAll(execPlan.dbStub, Utils.generateRandomString(100, 100));
-        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());;
+        List<String> toBeDeleted = messageList.stream().map(ProtoMessage::getId).collect(Collectors.toList());
         ProtoMessage response = Requests.removeAll(execPlan.dbStub, toBeDeleted);
     }
 

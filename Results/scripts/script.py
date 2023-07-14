@@ -33,6 +33,8 @@ SIZED_THREAD_STATS = [
     "10 Threads\nStream",
     "20 Threads\nStream",
 ]
+CSV_PATH = "../container-csv2"
+OUT_PATH = "./graphs2"
 
 
 def get_only_characters(string):
@@ -65,10 +67,12 @@ def percentage_to_float(df_col):
     return df_col.apply(lambda x: float(x[0:-1]))
 
 
-def make_throughput_chart(name: str):
-    ''' Makes a throughput chart and saves it to a file with "name_throughput.png"'''
-    rs_df = pd.read_csv("../container-csv/rs_" + name + "_tpt.csv")
-    grpc_df = pd.read_csv("../container-csv/grpc_" + name + "_tpt.csv")
+def make_throughput_chart(
+    name: str
+):
+    '''Makes a throughput chart and saves it to a file with "name_throughput.png"'''
+    rs_df = pd.read_csv(f"{CSV_PATH}/rs_{name}_tpt.csv")
+    grpc_df = pd.read_csv(f"{CSV_PATH}/grpc_{name}_tpt.csv")
     rsocket_throughput_values = rs_df["Score"]
     grpc_throughput_values = grpc_df["Score"]
 
@@ -101,30 +105,33 @@ def make_throughput_chart(name: str):
     plt.title(f"Throughput of {name}")
     plt.grid()
     plt.tight_layout()
-    plt.savefig("./graphs/" + name + "_throughput.png")
+    plt.savefig(f"{OUT_PATH}/{name}_throughput.png")
     plt.cla()
     plt.clf()
 
 
 def make_mem_chart(name: str):
-    ''' Makes a memory utilisation chart and saves it to a file with "name_throughput.png"'''
+    '''Makes a memory utilisation chart and saves it to a file with "name_throughput.png"'''
 
     rs_name = "rs_" + name
     grpc_name = "grpc_" + name
 
     rs_df = pd.read_csv(
-        f"../container-csv/{rs_name}.csv", delimiter=r"\s\s+", engine="python"
+        f"{CSV_PATH}/{rs_name}.csv", delimiter=r"\s\s+", engine="python"
     )
     rs_df = rs_df[rs_df.NAME != "NAME"]
     rs_df["MEM %"] = percentage_to_float(rs_df["MEM %"])
 
     grpc_df = pd.read_csv(
-        f"../container-csv/{grpc_name}.csv", delimiter=r"\s\s+", engine="python"
+        f"{CSV_PATH}/{grpc_name}.csv", delimiter=r"\s\s+", engine="python"
     )
     grpc_df = grpc_df[grpc_df.NAME != "NAME"]
     grpc_df["MEM %"] = percentage_to_float(grpc_df["MEM %"])
 
     fig, ax = plt.subplots(1, 1, figsize=(14, 7))
+
+    rs_avg_mem = np.mean(rs_df["MEM %"])
+    grpc_avg_mem = np.mean(grpc_df["MEM %"])
 
     sns.lineplot(
         x=rs_df.index,
@@ -159,31 +166,35 @@ def make_mem_chart(name: str):
     plt.title(f"MEM Usage of {name}")
     plt.xticks(tick_pos, thread_stats)
     plt.grid()
-    plt.savefig("./graphs/" + name + "_mem.png")
+    plt.savefig(f"{OUT_PATH}/{name}_mem.png")
     plt.cla()
     plt.clf()
     plt.close()
+    return rs_avg_mem, grpc_avg_mem
 
 
 def make_cpu_chart(name: str):
-    ''' Makes a CPU utilisation chart and saves it to a file with "name_throughput.png"'''
+    '''Makes a CPU utilisation chart and saves it to a file with "name_throughput.png"'''
 
     rs_name = "rs_" + name
     grpc_name = "grpc_" + name
 
     rs_df = pd.read_csv(
-        f"../container-csv/{rs_name}.csv", delimiter=r"\s\s+", engine="python"
+        f"{CSV_PATH}/{rs_name}.csv", delimiter=r"\s\s+", engine="python"
     )
     rs_df = rs_df[rs_df.NAME != "NAME"]
     rs_df["CPU %"] = percentage_to_float(rs_df["CPU %"])
 
     grpc_df = pd.read_csv(
-        f"../container-csv/{grpc_name}.csv", delimiter=r"\s\s+", engine="python"
+        f"{CSV_PATH}/{grpc_name}.csv", delimiter=r"\s\s+", engine="python"
     )
     grpc_df = grpc_df[grpc_df.NAME != "NAME"]
     grpc_df["CPU %"] = percentage_to_float(grpc_df["CPU %"])
 
     fig, ax = plt.subplots(1, 1, figsize=(14, 7))
+
+    rs_avg_cpu = np.mean(rs_df["CPU %"])
+    grpc_avg_cpu = np.mean(grpc_df["CPU %"])
 
     sns.lineplot(
         x=rs_df.index,
@@ -217,10 +228,11 @@ def make_cpu_chart(name: str):
     plt.title(f"CPU Usage of {name}")
     plt.xticks(tick_pos, thread_stats)
     plt.grid()
-    plt.savefig("./graphs/" + name + "_cpu.png")
+    plt.savefig(f"{OUT_PATH}/{name}_cpu.png")
     plt.cla()
     plt.clf()
     plt.close()
+    return rs_avg_cpu, grpc_avg_cpu
 
 
 def make_all_charts_for_each(names: list[str]):
@@ -229,9 +241,22 @@ def make_all_charts_for_each(names: list[str]):
 
 
 def make_all_charts(name: str):
+    rs_avg_cpu, grpc_avg_cpu = make_cpu_chart(name)
+    rs_avg_mem, grpc_avg_mem = make_mem_chart(name)
+    print(name, ":")
+    print(
+        "CPU Average:\nRSocket:\t"
+        + str(round(rs_avg_cpu, 2))
+        + " %\ngRPC:\t\t"
+        + str(round(grpc_avg_cpu, 2))
+        + " %\nMEM Average:\nRSocket:\t"
+        + str(round(rs_avg_mem, 2))
+        + " %\ngRPC:\t\t"
+        + str(round(grpc_avg_mem, 2)) + " %"
+    )
+
     make_throughput_chart(name)
-    make_cpu_chart(name)
-    make_mem_chart(name)
+    print()
 
 
 if __name__ == "__main__":

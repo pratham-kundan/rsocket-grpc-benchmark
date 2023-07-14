@@ -30,16 +30,16 @@ public class SizedTestBench extends BaseTestBench {
     @Benchmark
     @Threads(10)
     public void benchmarkRequestStreamT10(ExecutionPlan execPlan) {
-        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 10);
+        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 5);
     }
 
     @Benchmark
     @Threads(20)
     public void benchmarkRequestStreamT20(ExecutionPlan execPlan) {
-        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 10);
+        List<ProtoSizedMessage> response = Requests.sizedRequestStream(execPlan.bStub, 5);
     }
 
-    @State(Scope.Thread)
+    @State(Scope.Benchmark)
     public static class ExecutionPlan {
         public ManagedChannel channel;
 
@@ -63,3 +63,9 @@ public class SizedTestBench extends BaseTestBench {
     }
 
 }
+//
+//    Benchmark                                                  Mode  Cnt    Score     Error  Units
+//    JMHBenchmarks.SizedTestBench.benchmarkRequestResponseT10  thrpt    3  220.898 ± 443.723  ops/s
+//        JMHBenchmarks.SizedTestBench.benchmarkRequestResponseT20  thrpt    3  248.794 ± 147.478  ops/s
+//        JMHBenchmarks.SizedTestBench.benchmarkRequestStreamT10    thrpt    3  280.372 ± 216.558  ops/s
+//        JMHBenchmarks.SizedTestBench.benchmarkRequestStreamT20    thrpt    3  272.849 ± 226.744  ops/s

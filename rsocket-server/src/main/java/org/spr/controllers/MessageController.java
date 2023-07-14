@@ -39,7 +39,7 @@ public class MessageController {
                 .range(0, 200)
                 .map(i -> ProtoMessage
                         .newBuilder()
-                        .setBody("Responding to: " + request.getBody() + " at:" + Instant.now())
+                        .setBody("Acknowledged: " + request.getBody() + " at:" + Instant.now())
                         .build()
                 );
     }

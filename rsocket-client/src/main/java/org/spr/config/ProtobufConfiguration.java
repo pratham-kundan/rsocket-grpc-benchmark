@@ -1,5 +1,6 @@
 package org.spr.config;
 
+import org.spr.utils.PropertiesLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -26,7 +27,7 @@ public class ProtobufConfiguration {
         return RSocketRequester.builder()
                 .rsocketStrategies(rSocketStrategies)
                 .dataMimeType(new MimeType("application", "x-protobuf"))
-                .tcp("localhost", 8989);
+                .tcp(PropertiesLoader.getProperty("server_host"), Integer.parseInt(PropertiesLoader.getProperty("server_port")));
     }
 
     /**

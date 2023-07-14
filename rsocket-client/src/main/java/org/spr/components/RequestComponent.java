@@ -38,11 +38,13 @@ public class RequestComponent {
         return sb.toString();
     }
 
-    public void fireRequests() {
-        ArrayList<String> messages = new ArrayList<>();
-        for (int i=0; i<200; i++) messages.add(generateRandomString(100));
-        // ensure that you set the active profile appropriately (to protobuf or json)
-        List<ProtoMessage> response = ProtoRequests.pushAll(rSocketRequester, messages);
+    public void fireRequests(int n) {
+        long start = System.nanoTime();
+        for (int i=0; i<n; i++) {
+            ProtoRequests.requestResponse(rSocketRequester, "Hello from client");
+        }
+        long stop = System.nanoTime();
+        System.out.println(((stop - start)/(n*1e6)) + "ms/request");
 
     }
 }

@@ -11,7 +11,7 @@ public class RSocketClient {
         ConfigurableApplicationContext context = SpringApplication.run(RSocketClient.class, args);
 
         RequestComponent requestFiringComponent = context.getBean(RequestComponent.class);
-        requestFiringComponent.fireRequests();
+        requestFiringComponent.fireRequests(10000);
         System.in.read();
     }
 }

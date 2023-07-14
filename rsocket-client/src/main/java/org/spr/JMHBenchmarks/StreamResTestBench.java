@@ -6,19 +6,17 @@ import org.spr.protos.ProtoMessage;
 import org.spr.requests.ProtoRequests;
 import org.springframework.messaging.rsocket.RSocketRequester;
 
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 /**
- * This class contains benchmarks for Client Side Streaming
+ * This class contains benchmarks for Client Side Streaming.
+ * <p>
+ * Sends a stream of messages to the server and awaits a response at the end of the stream
  */
-public class CssTestBench extends BaseTestBench{
+public class StreamResTestBench extends BaseTestBench {
 
     @Benchmark
     @Threads(10)
     public void benchmarkStreamResponseA(ExecutionPlan execPlan) {
-        ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester,  "Hello from client");
+        ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
@@ -30,7 +28,7 @@ public class CssTestBench extends BaseTestBench{
     @Benchmark
     @Threads(50)
     public void benchmarkStreamResponseC(ExecutionPlan execPlan) {
-        ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester,  "Hello from client");
+        ProtoMessage response = ProtoRequests.streamResponse(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark

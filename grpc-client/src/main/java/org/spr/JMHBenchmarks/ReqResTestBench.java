@@ -10,6 +10,8 @@ import org.spr.requests.Requests;
 /**
  * This class contains functions to benchmark the throughput of
  * server functions returning echos.
+ * <p>
+ * Sends a request to the server and awaits a response
  */
 public class ReqResTestBench extends BaseTestBench {
 

@@ -9,31 +9,34 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 import java.util.List;
 
 /**
- * This class contains benchmarks for Bidirectional Streaming
+ * This class contains functions to benchmark for bidirectional Streaming.
+ * <p>
+ * Stream messages to the server and accepts a stream of messages from the server and
+ * collects them into a list
  */
 public class ChannelTestBench extends BaseTestBench{
 
     @Benchmark
     @Threads(10)
-    public void benchmarkBiStreamA(CssTestBench.ExecutionPlan execPlan) {
+    public void benchmarkBiStreamA(StreamResTestBench.ExecutionPlan execPlan) {
         List<ProtoMessage> response = ProtoRequests.biStream(execPlan.rSocketRequester, "Hello from client");
     }
 
 
     @Benchmark
     @Threads(20)
-    public void benchmarkBiStreamB(CssTestBench.ExecutionPlan execPlan) {
+    public void benchmarkBiStreamB(StreamResTestBench.ExecutionPlan execPlan) {
         List<ProtoMessage> response = ProtoRequests.biStream(execPlan.rSocketRequester,"Hello from client");
     }
     @Benchmark
     @Threads(50)
-    public void benchmarkBiStreamC(CssTestBench.ExecutionPlan execPlan) {
+    public void benchmarkBiStreamC(StreamResTestBench.ExecutionPlan execPlan) {
         List<ProtoMessage> response = ProtoRequests.biStream(execPlan.rSocketRequester, "Hello from client");
     }
 
     @Benchmark
     @Threads(100)
-    public void benchmarkBiStreamD(CssTestBench.ExecutionPlan execPlan) {
+    public void benchmarkBiStreamD(StreamResTestBench.ExecutionPlan execPlan) {
         List<ProtoMessage> response = ProtoRequests.biStream(execPlan.rSocketRequester,"Hello from client");
     }
 

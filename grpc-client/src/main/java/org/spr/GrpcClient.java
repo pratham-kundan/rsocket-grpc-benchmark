@@ -11,15 +11,20 @@ public class GrpcClient {
 
     public static void main(String[] args) throws Exception {
         channel = ManagedChannelBuilder
-                .forAddress("localhost", 8787)
+                .forAddress("localhost", 9000)
                 .maxInboundMessageSize(40 * 1024 * 1024)
                 .usePlaintext()
                 .build();
-        run();
+        run(100);
     }
 
-    public static void run() throws Exception {
-        var stub = MessageDbServiceGrpc.newBlockingStub(channel);
-        Requests.getAllMessages(stub);
+    public static void run(int n) throws Exception {
+        var stub = MessageServiceGrpc.newBlockingStub(channel);
+        long start = System.nanoTime();
+        for (int i=0; i<n; i++) {
+            Requests.requestResponse(stub, "Hello from client");
+        }
+        long stop = System.nanoTime();
+        System.out.println(((stop-start)/n) + "nanosecs/request");
     }
 }
